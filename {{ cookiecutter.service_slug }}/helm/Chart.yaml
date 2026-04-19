@@ -1,0 +1,22 @@
+apiVersion: v2
+name: {{ cookiecutter.service_slug }}
+description: Helm chart for {{ cookiecutter.service_name }} microservice
+type: application
+version: {{ cookiecutter.version }}
+appVersion: {{ cookiecutter.version }}
+keywords:
+  - microservice
+  - kubernetes
+  - {{ cookiecutter.service_slug }}
+home: https://github.com
+sources:
+  - https://github.com
+maintainers:
+  - name: {{ cookiecutter.author }}
+    email: {{ cookiecutter.email }}
+dependencies:
+  - name: zookeeper
+    version: "14.x.x"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: zookeeper.enabled
+    alias: zk
