@@ -1,0 +1,91 @@
+# Development Environment Defaults
+# Helm values for {{ cookiecutter.service_name }} Kubernetes deployment
+
+# Replica count for deployment
+replicaCount: 3
+
+# Image configuration
+image:
+  repository: "{{ cookiecutter.service_slug }}"
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+# Resource limits and requests
+resources:
+  requests:
+    cpu: "250m"
+    memory: "512Mi"
+  limits:
+    cpu: "500m"
+    memory: "1Gi"
+
+# Storage configuration
+storage:
+  enabled: true
+  size: "10Gi"
+  storageClassName: "standard"
+  mountPath: "/data"
+
+# JVM heap configuration (for Java/JVM workloads)
+jvm:
+  heapMin: "512m"
+  heapMax: "1g"
+  jvmOpts: "-XX:+UseG1GC -XX:MaxGCPauseMillis=200"
+
+# Liveness and readiness probes
+healthChecks:
+  liveness:
+    enabled: true
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readiness:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 2
+
+# Environment variables
+env:
+  - name: "SERVICE_NAME"
+    value: "{{ cookiecutter.service_slug }}"
+  - name: "LOG_LEVEL"
+    value: "info"
+  - name: "COMPRESSION"
+    value: "snappy"
+
+# ConfigMap data
+configMap:
+  enabled: false
+  data: {}
+
+# Affinity rules (placeholder for pod scheduling)
+affinity: {}
+
+# Node selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Security context
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+
+# Ingress configuration
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts: []
+  tls: []
