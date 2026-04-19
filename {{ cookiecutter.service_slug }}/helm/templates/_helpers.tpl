@@ -64,3 +64,19 @@ If not set by user, this defaults to using the release name.
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Service helper functions - aliases to chart helpers for backward compatibility
+*/}}
+{{- define "service.fullname" -}}
+{{- include "chart.fullname" . }}
+{{- end }}
+
+{{- define "service.labels" -}}
+{{- include "chart.labels" . }}
+{{- end }}
+
+{{- define "service.selectorLabels" -}}
+{{- include "chart.selectorLabels" . }}
+{{- end }}
+

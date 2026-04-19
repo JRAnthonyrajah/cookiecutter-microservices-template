@@ -1,0 +1,16 @@
+apiVersion: v2
+name: "{{ cookiecutter.service_slug }}"
+description: "Helm chart for {{ cookiecutter.service_name }} microservice"
+type: application
+version: 0.1.0
+appVersion: "1.0"
+keywords:
+  - microservice
+  - kubernetes
+  - statefulset
+home: "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.github_repo }}"
+sources:
+  - "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.github_repo }}"
+maintainers:
+  - name: "Template Author"
+    email: "author@example.com"

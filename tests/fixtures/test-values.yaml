@@ -1,0 +1,81 @@
+replicaCount: 2
+
+image:
+  repository: "test-service"
+  tag: "v1.0.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+  protocol: TCP
+  portName: http
+
+config:
+  serviceName: "test-service"
+  logLevel: "DEBUG"
+  compression: "true"
+  enableMetrics: "true"
+  enableTracing: "true"
+  httpPort: "8080"
+  healthCheckInterval: "30s"
+  customEnvVars:
+    CUSTOM_VAR_1: "value1"
+    CUSTOM_VAR_2: "value2"
+
+configMap:
+  enabled: true
+
+persistence:
+  enabled: true
+  storageClassName: "standard"
+  size: 5Gi
+
+storage:
+  enabled: false
+  mountPath: /data
+  storageClassName: ""
+  size: 10Gi
+
+healthChecks:
+  liveness:
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readiness:
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+jvm:
+  heapMin: "256m"
+  heapMax: "512m"
+  jvmOpts: "-XX:+UseG1GC"
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+
+env:
+  - name: DATABASE_URL
+    value: "postgresql://localhost:5432/db"
+  - name: API_KEY
+    value: "test-api-key"

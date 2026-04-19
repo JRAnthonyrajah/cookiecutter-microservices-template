@@ -1,0 +1,71 @@
+replicaCount: 1
+
+image:
+  repository: "{{ cookiecutter.service_slug }}"
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+  protocol: TCP
+  portName: http
+
+config:
+  serviceName: "{{ cookiecutter.service_slug }}"
+  logLevel: "INFO"
+  compression: "true"
+  enableMetrics: "true"
+  enableTracing: "false"
+  httpPort: "8080"
+  healthCheckInterval: "30s"
+
+configMap:
+  enabled: true
+
+persistence:
+  enabled: true
+  storageClassName: ""
+  size: 10Gi
+
+storage:
+  enabled: false
+  mountPath: /data
+  storageClassName: ""
+  size: 10Gi
+
+healthChecks:
+  liveness:
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readiness:
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+jvm:
+  heapMin: ""
+  heapMax: ""
+  jvmOpts: ""
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+securityContext: {}
+
+env: []

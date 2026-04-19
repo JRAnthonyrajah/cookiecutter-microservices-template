@@ -1,0 +1,16 @@
+apiVersion: v2
+name: test-service
+description: Test Helm chart for testing Helm rendering
+type: application
+version: 0.1.0
+appVersion: "1.0"
+keywords:
+  - microservice
+  - kubernetes
+  - statefulset
+home: "https://github.com/example/test-service"
+sources:
+  - "https://github.com/example/test-service"
+maintainers:
+  - name: "Test Author"
+    email: "author@example.com"

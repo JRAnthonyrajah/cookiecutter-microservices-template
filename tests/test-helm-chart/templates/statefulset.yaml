@@ -1,31 +1,27 @@
-{{- /*
-StatefulSet for {{ cookiecutter.service_name }}
-Provides ordered pod naming and persistent storage for stateful workloads.
-*/}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "chart.fullname" . }}
+  name: {{ include "test-service.fullname" . }}
   labels:
-    {{- include "chart.labels" . | nindent 4 }}
+    {{- include "test-service.labels" . | nindent 4 }}
 spec:
-  serviceName: {{ include "chart.fullname" . }}
+  serviceName: {{ include "test-service.fullname" . }}
   podManagementPolicy: Parallel
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "chart.selectorLabels" . | nindent 6 }}
+      {{- include "test-service.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "chart.selectorLabels" . | nindent 8 }}
+        {{- include "test-service.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.securityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-      - name: {{ include "chart.name" . }}
+      - name: {{ include "test-service.name" . }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
@@ -51,7 +47,7 @@ spec:
         {{- if .Values.configMap.enabled }}
         envFrom:
         - configMapRef:
-            name: {{ include "chart.fullname" . }}
+            name: {{ include "test-service.fullname" . }}
         {{- end }}
         {{- with .Values.resources }}
         resources:
@@ -93,7 +89,7 @@ spec:
                 - key: app.kubernetes.io/name
                   operator: In
                   values:
-                  - {{ include "chart.name" . }}
+                  - {{ include "test-service.name" . }}
               topologyKey: kubernetes.io/hostname
       {{- end }}
       {{- with .Values.nodeSelector }}
