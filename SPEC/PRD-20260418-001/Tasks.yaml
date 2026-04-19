@@ -1,0 +1,552 @@
+- dependencies: []
+  description: Define all variables (service name, language, package name, versions,
+    GitHub options) and their defaults
+  error: null
+  estimated_cost: 4.0
+  id: TASK-001
+  inputs: {}
+  outputs:
+    manifest: cookiecutter.json
+  plan_id: PLAN-20260418-001
+  specification:
+    validation: pre_gen_project hook validates slugs, identifiers, versions
+    variables:
+    - service_name
+    - service_slug
+    - language
+    - package_name
+    - version
+    - author
+    - email
+    - python_version
+    - go_version
+    - node_version
+    - create_github_repo
+    - repo_visibility
+  state: PENDING
+  status: pending
+  title: Design cookiecutter.json manifest
+  version: 1.0.0
+- dependencies:
+  - TASK-001
+  description: Validate inputs before template generation (slug regex, valid Python
+    identifier, version format)
+  error: null
+  estimated_cost: 5.0
+  id: TASK-002
+  inputs:
+    manifest: cookiecutter.json
+  outputs:
+    hook: hooks/pre_gen_project.py
+  plan_id: PLAN-20260418-001
+  specification:
+    error_messages: Clear, actionable error messages for each validation
+    validations:
+    - slug matches [a-z0-9_]+
+    - package_name is valid Python identifier
+    - version matches semver
+    - language in [python, go, nodejs]
+  state: PENDING
+  status: pending
+  title: Implement pre_gen_project.py validation hook
+  version: 1.0.0
+- dependencies: []
+  description: Generate Chart.yaml with correct apiVersion, dependencies, and metadata
+  error: null
+  estimated_cost: 3.0
+  id: TASK-003
+  inputs: {}
+  outputs:
+    chart: '{{ cookiecutter.service_slug }}/helm/Chart.yaml'
+  plan_id: PLAN-20260418-001
+  specification:
+    apiVersion: v2
+    dependencies: Bitnami Zookeeper (conditional), other common dependencies
+    templating: Use {{ cookiecutter.* }} for service name, version, description
+  state: PENDING
+  status: pending
+  title: Create Helm Chart.yaml template
+  version: 1.0.0
+- dependencies: []
+  description: Define dev environment defaults (3 replicas, 10Gi storage, 512m-1g
+    heap, etc.)
+  error: null
+  estimated_cost: 4.0
+  id: TASK-004
+  inputs: {}
+  outputs:
+    values: '{{ cookiecutter.service_slug }}/helm/values.yaml'
+  plan_id: PLAN-20260418-001
+  specification:
+    compression: snappy
+    heap_size: 512m-1g
+    image_pull_policy: IfNotPresent
+    replicas: 3
+    storage: 10Gi
+  state: PENDING
+  status: pending
+  title: Create Helm values.yaml with dev defaults
+  version: 1.0.0
+- dependencies:
+  - TASK-003
+  - TASK-004
+  description: Generate StatefulSet for stateful workloads with ordered scaling and
+    probes
+  error: null
+  estimated_cost: 7.0
+  id: TASK-005
+  inputs:
+    chart: Chart.yaml
+    values: values.yaml
+  outputs:
+    template: '{{ cookiecutter.service_slug }}/helm/templates/statefulset.yaml'
+  plan_id: PLAN-20260418-001
+  specification:
+    affinity: Pod anti-affinity for replica distribution
+    env_vars: From ConfigMap and secrets
+    ordering: Ordered pod names (service-0, service-1, etc.)
+    probes:
+    - 'liveness: TCP socket'
+    - 'readiness: exec or HTTP'
+    workload_type: StatefulSet
+  state: PENDING
+  status: pending
+  title: Create Helm StatefulSet template
+  version: 1.0.0
+- dependencies:
+  - TASK-003
+  description: Generate Service supporting ClusterIP and headless modes
+  error: null
+  estimated_cost: 3.0
+  id: TASK-006
+  inputs:
+    chart: Chart.yaml
+  outputs:
+    template: '{{ cookiecutter.service_slug }}/helm/templates/service.yaml'
+  plan_id: PLAN-20260418-001
+  specification:
+    ports: Configurable from values
+    selectors: Match StatefulSet labels
+    service_types:
+    - ClusterIP (default)
+    - headless for StatefulSet
+  state: PENDING
+  status: pending
+  title: Create Helm Service template
+  version: 1.0.0
+- dependencies:
+  - TASK-003
+  description: Generate ConfigMap for env vars and PVC for persistent storage
+  error: null
+  estimated_cost: 4.0
+  id: TASK-007
+  inputs:
+    chart: Chart.yaml
+  outputs:
+    templates:
+    - '{{ cookiecutter.service_slug }}/helm/templates/configmap.yaml'
+    - '{{ cookiecutter.service_slug }}/helm/templates/pvc.yaml'
+  plan_id: PLAN-20260418-001
+  specification:
+    configmap: Inject environment variables from values
+    pvc: PersistentVolumeClaim with configurable storage class
+    templating: Use {{ cookiecutter.* }} for defaults
+  state: PENDING
+  status: pending
+  title: Create Helm ConfigMap and PVC templates
+  version: 1.0.0
+- dependencies:
+  - TASK-003
+  description: Generate _helpers.tpl with consistent labels and naming functions
+  error: null
+  estimated_cost: 3.0
+  id: TASK-008
+  inputs:
+    chart: Chart.yaml
+  outputs:
+    template: '{{ cookiecutter.service_slug }}/helm/templates/_helpers.tpl'
+  plan_id: PLAN-20260418-001
+  specification:
+    consistency: Ensure all templates use the same naming convention
+    helpers:
+    - labels
+    - name
+    - chart
+    - selectorLabels
+  state: PENDING
+  status: pending
+  title: Create Helm helpers template
+  version: 1.0.0
+- dependencies:
+  - TASK-004
+  description: Create production environment overrides (50Gi, 1-2GB heap, etc.)
+  error: null
+  estimated_cost: 2.0
+  id: TASK-009
+  inputs:
+    dev_values: helm/values.yaml
+  outputs:
+    prod_values: '{{ cookiecutter.service_slug }}/values.yaml'
+  plan_id: PLAN-20260418-001
+  specification:
+    overrides:
+      heap_size: 1g-2g
+      replicas: 3-5
+      storage: 50Gi
+      storage_class: aws-ebs
+  state: PENDING
+  status: pending
+  title: Create root values.yaml for production overrides
+  version: 1.0.0
+- dependencies: []
+  description: Generate language-specific Dockerfile with health checks and JVM tuning
+  error: null
+  estimated_cost: 5.0
+  id: TASK-010
+  inputs: {}
+  outputs:
+    dockerfile: '{{ cookiecutter.service_slug }}/Dockerfile'
+  plan_id: PLAN-20260418-001
+  specification:
+    common:
+    - HEALTHCHECK instruction
+    - ENV variable configuration
+    - JVM tuning (if applicable)
+    languages:
+      go: golang:1.x build, minimal runtime
+      nodejs: node:18 base, npm/yarn
+      python: python:3.x base, pip/poetry
+  state: PENDING
+  status: pending
+  title: Create Dockerfile template
+  version: 1.0.0
+- dependencies:
+  - TASK-010
+  description: Generate docker-compose for local dev mirroring Helm configuration
+  error: null
+  estimated_cost: 4.0
+  id: TASK-011
+  inputs:
+    dockerfile: Dockerfile
+  outputs:
+    compose: '{{ cookiecutter.service_slug }}/docker-compose.yml'
+  plan_id: PLAN-20260418-001
+  specification:
+    environment: Match Helm ConfigMap env vars
+    health_checks: Match liveness/readiness probes
+    ports: Expose service on localhost
+    services: Single service + dependencies (if any)
+    volumes: Code and data persistence mounts
+  state: PENDING
+  status: pending
+  title: Create docker-compose.yml template
+  version: 1.0.0
+- dependencies:
+  - TASK-003
+  description: Generate ApplicationSet for GitOps sync with auto-prune and retry logic
+  error: null
+  estimated_cost: 5.0
+  id: TASK-012
+  inputs:
+    chart: Chart.yaml
+  outputs:
+    applicationset: '{{ cookiecutter.service_slug }}/argocd/applicationset.yaml'
+  plan_id: PLAN-20260418-001
+  specification:
+    generators: Templated for multi-env (dev, staging, prod)
+    ignore_differences: Ignore PVC and StatefulSet rolling changes
+    retry: 5 attempts, exponential backoff to 3m
+    sync_policy: 'auto-prune: true, selfHeal: true'
+  state: PENDING
+  status: pending
+  title: Create ArgoCD ApplicationSet template
+  version: 1.0.0
+- dependencies:
+  - TASK-001
+  description: Generate .github/workflows/ci.yml for lint, test, build, and push
+  error: null
+  estimated_cost: 4.0
+  id: TASK-013
+  inputs: {}
+  outputs:
+    workflow: '{{ cookiecutter.service_slug }}/.github/workflows/ci.yml'
+  plan_id: PLAN-20260418-001
+  specification:
+    jobs:
+    - lint
+    - test
+    - build
+    - helm-lint
+    - push (on main/master only)
+    triggers:
+    - push to all branches
+    - PRs
+  state: PENDING
+  status: pending
+  title: Create GitHub Actions CI/CD workflow template
+  version: 1.0.0
+- dependencies:
+  - TASK-003
+  - TASK-011
+  description: Generate automation file with deploy, validate, logs, test, clean targets
+  error: null
+  estimated_cost: 4.0
+  id: TASK-014
+  inputs:
+    compose: docker-compose.yml
+    helm: helm/
+  outputs:
+    makefile: '{{ cookiecutter.service_slug }}/Makefile'
+  plan_id: PLAN-20260418-001
+  specification:
+    targets:
+      clean: Remove resources
+      deploy: helm install to current cluster
+      deploy-dev: helm install with dev overrides
+      logs: kubectl logs streaming
+      test: Run integration tests
+      validate: helm lint + dry-run
+  state: PENDING
+  status: pending
+  title: Create Makefile/Taskfile with common commands
+  version: 1.0.0
+- dependencies:
+  - TASK-014
+  description: Generate DEPLOYMENT.md, DEVELOPMENT.md, OPERATIONS.md, README.md, and
+    CLAUDE.md
+  error: null
+  estimated_cost: 6.0
+  id: TASK-015
+  inputs: {}
+  outputs:
+    docs:
+    - README.md
+    - DEPLOYMENT.md
+    - DEVELOPMENT.md
+    - OPERATIONS.md
+    - CLAUDE.md
+  plan_id: PLAN-20260418-001
+  specification:
+    CLAUDE.md: Project rules and imports
+    DEPLOYMENT.md: Helm, ArgoCD, cloud-specific instructions
+    DEVELOPMENT.md: Local setup (docker-compose, prerequisites)
+    OPERATIONS.md: Troubleshooting, monitoring, scaling
+    README.md: Quick start and doc links
+  state: PENDING
+  status: pending
+  title: Create documentation templates
+  version: 1.0.0
+- dependencies:
+  - TASK-015
+  description: Set up @shared-claude-rules imports for conventions (git, testing,
+    secrets, docs)
+  error: null
+  estimated_cost: 2.0
+  id: TASK-016
+  inputs:
+    claude_md_template: CLAUDE.md
+  outputs:
+    configured: CLAUDE.md with imports
+  plan_id: PLAN-20260418-001
+  specification:
+    imports:
+    - '@shared-claude-rules/workflow/git.md'
+    - '@shared-claude-rules/workflow/docs.md'
+    - '@shared-claude-rules/testing.md'
+    - '@shared-claude-rules/secrets.md'
+  state: PENDING
+  status: pending
+  title: Configure cross-repo rules imports in CLAUDE.md
+  version: 1.0.0
+- dependencies:
+  - TASK-002
+  - TASK-014
+  description: Implement hook that runs git init, initial commit, GitHub repo creation,
+    tooling setup
+  error: null
+  estimated_cost: 8.0
+  id: TASK-017
+  inputs:
+    hook_template: hooks/post_gen_project.py
+  outputs:
+    hook: hooks/post_gen_project.py
+  plan_id: PLAN-20260418-001
+  specification:
+    steps:
+    - git init and initial commit
+    - create git tag for version
+    - Install language-specific tooling (Poetry, go mod, npm)
+    - gh repo create (if enabled)
+    - Setup pre-commit hooks
+    - Run initial tests/validation
+  state: PENDING
+  status: pending
+  title: Implement post_gen_project.py hook
+  version: 1.0.0
+- dependencies:
+  - TASK-001
+  description: Generate {{ cookiecutter.service_slug }}/ subdirectories with language-specific
+    scaffolds
+  error: null
+  estimated_cost: 6.0
+  id: TASK-018
+  inputs:
+    manifest: cookiecutter.json
+  outputs:
+    stubs: Language-specific src/ directories
+  plan_id: PLAN-20260418-001
+  specification:
+    go: main.go, go.mod, Makefile targets
+    nodejs: src/, package.json, jest setup
+    python: src/package/, pyproject.toml, pytest setup
+  state: PENDING
+  status: pending
+  title: Create language-specific stubs (Python, Go, Node.js)
+  version: 1.0.0
+- dependencies:
+  - TASK-002
+  description: Test pre_gen_project hook with valid and invalid inputs
+  error: null
+  estimated_cost: 4.0
+  id: TASK-019
+  inputs:
+    hook: hooks/pre_gen_project.py
+  outputs:
+    test_results: Validation report
+  plan_id: PLAN-20260418-001
+  specification:
+    invalid_cases:
+    - invalid slug (uppercase)
+    - invalid identifier
+    - malformed version
+    - unsupported language
+    valid_cases:
+    - valid slug, identifier, version
+    - all languages
+  state: PENDING
+  status: pending
+  title: Implement pre-generation input validation and testing
+  version: 1.0.0
+- dependencies:
+  - TASK-005
+  - TASK-006
+  - TASK-007
+  - TASK-008
+  description: Render Helm templates with test values; validate YAML syntax
+  error: null
+  estimated_cost: 5.0
+  id: TASK-020
+  inputs:
+    helm_templates: helm/templates/
+  outputs:
+    test_report: Helm rendering validation
+  plan_id: PLAN-20260418-001
+  specification:
+    tests:
+    - helm lint
+    - helm template dry-run
+    - YAML validation
+    - Verify ConfigMap and PVC presence
+    - Check probe configuration
+  state: PENDING
+  status: pending
+  title: Test Helm template rendering
+  version: 1.0.0
+- dependencies:
+  - TASK-010
+  description: Build Docker images for Python, Go, Node.js; verify health checks
+  error: null
+  estimated_cost: 6.0
+  id: TASK-021
+  inputs:
+    dockerfile_template: Dockerfile
+  outputs:
+    build_report: Docker build validation
+  plan_id: PLAN-20260418-001
+  specification:
+    languages:
+    - python:3.x
+    - go:1.x
+    - nodejs:18
+    verification:
+    - Image builds successfully
+    - HEALTHCHECK instruction present
+    - Runs without errors
+  state: PENDING
+  status: pending
+  title: Test Docker image builds for all languages
+  version: 1.0.0
+- dependencies:
+  - TASK-011
+  description: Run docker-compose up locally; verify services are healthy and reachable
+  error: null
+  estimated_cost: 5.0
+  id: TASK-022
+  inputs:
+    compose_template: docker-compose.yml
+  outputs:
+    test_report: Docker Compose validation
+  plan_id: PLAN-20260418-001
+  specification:
+    tests:
+    - docker-compose up succeeds
+    - Services reach healthy state
+    - Port mappings work
+    - Environment variables are set
+    - docker-compose down cleans up
+  state: PENDING
+  status: pending
+  title: Test docker-compose up and service health
+  version: 1.0.0
+- dependencies:
+  - TASK-017
+  - TASK-020
+  - TASK-021
+  - TASK-022
+  description: Generate a service from template; validate all artifacts are created,
+    git init works, deployment is possible
+  error: null
+  estimated_cost: 8.0
+  id: TASK-023
+  inputs:
+    all_components: cookiecutter.json, hooks, templates
+  outputs:
+    e2e_report: End-to-end validation report, generated service directory
+  plan_id: PLAN-20260418-001
+  specification:
+    steps:
+    - Run cookiecutter with test inputs
+    - Verify directory structure
+    - Check Helm templates render
+    - Verify Docker builds
+    - Test docker-compose startup
+    - Test GitHub repo creation (optional)
+    - Verify post-hook executed successfully
+  state: PENDING
+  status: pending
+  title: End-to-end template validation
+  version: 1.0.0
+- dependencies:
+  - TASK-015
+  - TASK-023
+  description: Write comprehensive guide on using the template, customizing generated
+    services, and deploying to Kubernetes
+  error: null
+  estimated_cost: 4.0
+  id: TASK-024
+  inputs:
+    generated_docs: DEPLOYMENT.md, DEVELOPMENT.md, OPERATIONS.md, README.md
+  outputs:
+    guide: Template usage documentation
+  plan_id: PLAN-20260418-001
+  specification:
+    content:
+    - Quick-start guide
+    - Variable reference
+    - Customization guide
+    - Kubernetes deployment walkthrough
+    - Troubleshooting common issues
+  state: PENDING
+  status: pending
+  title: Documentation and deployment instructions
+  version: 1.0.0

@@ -1,0 +1,1110 @@
+{
+  "prds": {
+    "1": {
+      "id": "PRD-20260418-001",
+      "version": "1.0.0",
+      "title": "Microservices Cookiecutter Template",
+      "description": "A production-ready cookiecutter template for generating Kubernetes-deployed microservices with standardized Helm charts, Docker infrastructure, ArgoCD integration, and cross-service conventions.",
+      "requirements": [
+        {
+          "id": "REQ-001",
+          "title": "Cookiecutter Template Structure",
+          "description": "Define cookiecutter.json with all variables needed to generate a microservice",
+          "priority": "high",
+          "acceptance_criteria": [
+            "cookiecutter.json defines service name, language, package name, Python/Go/Node.js versions",
+            "All {{ cookiecutter.* }} placeholders are resolvable from the manifest",
+            "Pre-generation hook validates inputs (slugs, identifiers, version format)",
+            "Post-generation hook initializes git, creates initial commit, optionally creates GitHub repo"
+          ]
+        },
+        {
+          "id": "REQ-002",
+          "title": "Helm Chart Templates",
+          "description": "Generate production-ready Helm charts for Kubernetes deployment",
+          "priority": "high",
+          "acceptance_criteria": [
+            "Chart.yaml with correct apiVersion and dependencies",
+            "values.yaml with dev defaults (3 replicas, 10Gi storage, configurable heap)",
+            "StatefulSet template for stateful workloads with ordered scaling",
+            "Service template supporting ClusterIP and headless service modes",
+            "ConfigMap for environment variable injection",
+            "PersistentVolumeClaim templates with configurable storage class",
+            "Liveness and readiness probes (TCP and exec-based options)",
+            "Pod anti-affinity for distributing replicas across nodes",
+            "Helper templates for consistent labels and naming"
+          ]
+        },
+        {
+          "id": "REQ-003",
+          "title": "Dockerfile and Image Strategy",
+          "description": "Minimal, language-agnostic Dockerfile using official base images",
+          "priority": "high",
+          "acceptance_criteria": [
+            "Dockerfile uses official base images (python:3.x, golang:1.x, node:18)",
+            "Health check configured for container orchestration",
+            "JVM tuning options for Java services (G1GC, heap size)",
+            "Environment variable configuration via Helm",
+            "Image size optimized (no build dependencies in final layer)"
+          ]
+        },
+        {
+          "id": "REQ-004",
+          "title": "Docker Compose for Local Development",
+          "description": "docker-compose.yml for local development without Kubernetes",
+          "priority": "high",
+          "acceptance_criteria": [
+            "Compose file mirrors production Helm configuration",
+            "Health checks for service dependencies (ordering)",
+            "Volume mounts for code and data persistence",
+            "Port mappings for local testing",
+            "Environment variable configuration matching Helm"
+          ]
+        },
+        {
+          "id": "REQ-005",
+          "title": "ArgoCD Integration",
+          "description": "ApplicationSet template for GitOps-based deployment",
+          "priority": "high",
+          "acceptance_criteria": [
+            "ApplicationSet with templated generators for multi-env deployment",
+            "Auto-prune and self-heal enabled",
+            "Retry logic (5 attempts, exponential backoff to 3m)",
+            "Ignore rules for immutable resources (PVCs, StatefulSet rolling)",
+            "Manifest location follows convention (argocd/applicationset.yaml)"
+          ]
+        },
+        {
+          "id": "REQ-006",
+          "title": "Makefile / Taskfile Automation",
+          "description": "Common development and deployment commands",
+          "priority": "medium",
+          "acceptance_criteria": [
+            "deploy: Helm install to current cluster",
+            "deploy-dev: Deploy with dev overrides (smaller resources)",
+            "validate: Helm lint and dry-run",
+            "logs: Stream logs from pods",
+            "test: Run integration tests",
+            "clean: Remove deployed resources and artifacts"
+          ]
+        },
+        {
+          "id": "REQ-007",
+          "title": "GitHub Actions CI/CD Workflow",
+          "description": "Pre-configured CI/CD for generated services",
+          "priority": "medium",
+          "acceptance_criteria": [
+            "Lint and validation on push/PR",
+            "Build and test on all branches",
+            "Container image build and push on main/master",
+            "Helm chart lint and dry-run",
+            "Integration with semantic-release (if applicable to service)"
+          ]
+        },
+        {
+          "id": "REQ-008",
+          "title": "Documentation Structure",
+          "description": "Standardized documentation for all generated services",
+          "priority": "medium",
+          "acceptance_criteria": [
+            "DEPLOYMENT.md: Helm, ArgoCD, and cloud-specific instructions",
+            "DEVELOPMENT.md: Local setup (docker-compose, prerequisites)",
+            "OPERATIONS.md: Troubleshooting, monitoring, scaling guidelines",
+            "README.md with quick start and links to docs",
+            "CLAUDE.md with project rules and guidelines"
+          ]
+        },
+        {
+          "id": "REQ-009",
+          "title": "Cross-Repository Rules Integration",
+          "description": "Import shared conventions from ../shared-claude-rules/",
+          "priority": "medium",
+          "acceptance_criteria": [
+            "CLAUDE.md imports @shared-claude-rules/workflow/git.md (Conventional Commits, semantic-release)",
+            "CLAUDE.md imports @shared-claude-rules/workflow/docs.md (documentation standards)",
+            "CLAUDE.md imports @shared-claude-rules/testing.md (testing conventions)",
+            "CLAUDE.md imports @shared-claude-rules/secrets.md (secrets management)",
+            "All generated projects follow inherited rules"
+          ]
+        },
+        {
+          "id": "REQ-010",
+          "title": "Multi-Language Support",
+          "description": "Support Python, Go, and Node.js services with language-specific defaults",
+          "priority": "medium",
+          "acceptance_criteria": [
+            "Python: Poetry, pytest, pytest-asyncio, black, commitizen",
+            "Go: go mod, cobra CLI framework (if applicable), testing package",
+            "Node.js: npm/yarn, jest, TypeScript (optional), commitizen",
+            "Language selection via cookiecutter prompt",
+            "Post-hook installs language-specific dependencies and tooling"
+          ]
+        },
+        {
+          "id": "REQ-011",
+          "title": "Health Checks and Observability Patterns",
+          "priority": "low",
+          "description": "Baked-in patterns for health checks, logging, and metrics",
+          "acceptance_criteria": [
+            "Liveness and readiness probes (TCP, HTTP, exec)",
+            "Structured logging patterns (JSON format, standard log levels)",
+            "Prometheus metrics exporter stub (language-specific)",
+            "Distributed tracing instrumentation (optional)"
+          ]
+        },
+        {
+          "id": "REQ-012",
+          "title": "Template Validation and Testing",
+          "description": "Automated validation of generated services",
+          "priority": "high",
+          "acceptance_criteria": [
+            "Cookiecutter pre-generation hook validates all inputs",
+            "Post-generation hook tests Helm template rendering",
+            "Docker image builds successfully",
+            "docker-compose up succeeds and services are healthy",
+            "Generated project can be pushed to GitHub and deployed"
+          ]
+        }
+      ],
+      "acceptance_criteria": [],
+      "validation_rules": {},
+      "created_at": "2026-04-18 21:17:58",
+      "pipeline_id": null,
+      "status": "active",
+      "priority": "high",
+      "tags": [
+        "infrastructure",
+        "kubernetes",
+        "cookiecutter",
+        "helm",
+        "q2-2026"
+      ],
+      "owner": "James Anthonyrajah",
+      "target_date": "2026-06-30",
+      "notes": null,
+      "_created_at": 1776539878.4764612,
+      "_updated_at": 1776539878.4764612
+    }
+  },
+  "plans": {
+    "1": {
+      "id": "PLAN-20260418-001",
+      "version": "2.0.0",
+      "prd_id": "PRD-20260418-001",
+      "title": "Implementation Plan: Microservices Cookiecutter Template",
+      "description": "Decomposed implementation plan for building a production-ready cookiecutter template that generates Kubernetes-deployed microservices with Helm charts, Docker infrastructure, ArgoCD integration, and cross-service conventions.",
+      "steps": [],
+      "task_definitions": [
+        {
+          "id": "TASK-001",
+          "title": "Design cookiecutter.json manifest",
+          "description": "Define all variables (service name, language, package name, versions, GitHub options) and their defaults",
+          "dependencies": [],
+          "specification": {
+            "variables": [
+              "service_name",
+              "service_slug",
+              "language",
+              "package_name",
+              "version",
+              "author",
+              "email",
+              "python_version",
+              "go_version",
+              "node_version",
+              "create_github_repo",
+              "repo_visibility"
+            ],
+            "validation": "pre_gen_project hook validates slugs, identifiers, versions"
+          },
+          "inputs": {},
+          "outputs": {
+            "manifest": "cookiecutter.json"
+          },
+          "estimated_cost": 4.0
+        },
+        {
+          "id": "TASK-002",
+          "title": "Implement pre_gen_project.py validation hook",
+          "description": "Validate inputs before template generation (slug regex, valid Python identifier, version format)",
+          "dependencies": [
+            "TASK-001"
+          ],
+          "specification": {
+            "validations": [
+              "slug matches [a-z0-9_]+",
+              "package_name is valid Python identifier",
+              "version matches semver",
+              "language in [python, go, nodejs]"
+            ],
+            "error_messages": "Clear, actionable error messages for each validation"
+          },
+          "inputs": {
+            "manifest": "cookiecutter.json"
+          },
+          "outputs": {
+            "hook": "hooks/pre_gen_project.py"
+          },
+          "estimated_cost": 5.0
+        },
+        {
+          "id": "TASK-003",
+          "title": "Create Helm Chart.yaml template",
+          "description": "Generate Chart.yaml with correct apiVersion, dependencies, and metadata",
+          "dependencies": [],
+          "specification": {
+            "apiVersion": "v2",
+            "dependencies": "Bitnami Zookeeper (conditional), other common dependencies",
+            "templating": "Use {{ cookiecutter.* }} for service name, version, description"
+          },
+          "inputs": {},
+          "outputs": {
+            "chart": "{{ cookiecutter.service_slug }}/helm/Chart.yaml"
+          },
+          "estimated_cost": 3.0
+        },
+        {
+          "id": "TASK-004",
+          "title": "Create Helm values.yaml with dev defaults",
+          "description": "Define dev environment defaults (3 replicas, 10Gi storage, 512m-1g heap, etc.)",
+          "dependencies": [],
+          "specification": {
+            "replicas": 3,
+            "storage": "10Gi",
+            "heap_size": "512m-1g",
+            "compression": "snappy",
+            "image_pull_policy": "IfNotPresent"
+          },
+          "inputs": {},
+          "outputs": {
+            "values": "{{ cookiecutter.service_slug }}/helm/values.yaml"
+          },
+          "estimated_cost": 4.0
+        },
+        {
+          "id": "TASK-005",
+          "title": "Create Helm StatefulSet template",
+          "description": "Generate StatefulSet for stateful workloads with ordered scaling and probes",
+          "dependencies": [
+            "TASK-003",
+            "TASK-004"
+          ],
+          "specification": {
+            "workload_type": "StatefulSet",
+            "ordering": "Ordered pod names (service-0, service-1, etc.)",
+            "probes": [
+              "liveness: TCP socket",
+              "readiness: exec or HTTP"
+            ],
+            "affinity": "Pod anti-affinity for replica distribution",
+            "env_vars": "From ConfigMap and secrets"
+          },
+          "inputs": {
+            "chart": "Chart.yaml",
+            "values": "values.yaml"
+          },
+          "outputs": {
+            "template": "{{ cookiecutter.service_slug }}/helm/templates/statefulset.yaml"
+          },
+          "estimated_cost": 7.0
+        },
+        {
+          "id": "TASK-006",
+          "title": "Create Helm Service template",
+          "description": "Generate Service supporting ClusterIP and headless modes",
+          "dependencies": [
+            "TASK-003"
+          ],
+          "specification": {
+            "service_types": [
+              "ClusterIP (default)",
+              "headless for StatefulSet"
+            ],
+            "ports": "Configurable from values",
+            "selectors": "Match StatefulSet labels"
+          },
+          "inputs": {
+            "chart": "Chart.yaml"
+          },
+          "outputs": {
+            "template": "{{ cookiecutter.service_slug }}/helm/templates/service.yaml"
+          },
+          "estimated_cost": 3.0
+        },
+        {
+          "id": "TASK-007",
+          "title": "Create Helm ConfigMap and PVC templates",
+          "description": "Generate ConfigMap for env vars and PVC for persistent storage",
+          "dependencies": [
+            "TASK-003"
+          ],
+          "specification": {
+            "configmap": "Inject environment variables from values",
+            "pvc": "PersistentVolumeClaim with configurable storage class",
+            "templating": "Use {{ cookiecutter.* }} for defaults"
+          },
+          "inputs": {
+            "chart": "Chart.yaml"
+          },
+          "outputs": {
+            "templates": [
+              "{{ cookiecutter.service_slug }}/helm/templates/configmap.yaml",
+              "{{ cookiecutter.service_slug }}/helm/templates/pvc.yaml"
+            ]
+          },
+          "estimated_cost": 4.0
+        },
+        {
+          "id": "TASK-008",
+          "title": "Create Helm helpers template",
+          "description": "Generate _helpers.tpl with consistent labels and naming functions",
+          "dependencies": [
+            "TASK-003"
+          ],
+          "specification": {
+            "helpers": [
+              "labels",
+              "name",
+              "chart",
+              "selectorLabels"
+            ],
+            "consistency": "Ensure all templates use the same naming convention"
+          },
+          "inputs": {
+            "chart": "Chart.yaml"
+          },
+          "outputs": {
+            "template": "{{ cookiecutter.service_slug }}/helm/templates/_helpers.tpl"
+          },
+          "estimated_cost": 3.0
+        },
+        {
+          "id": "TASK-009",
+          "title": "Create root values.yaml for production overrides",
+          "description": "Create production environment overrides (50Gi, 1-2GB heap, etc.)",
+          "dependencies": [
+            "TASK-004"
+          ],
+          "specification": {
+            "overrides": {
+              "storage": "50Gi",
+              "heap_size": "1g-2g",
+              "replicas": "3-5",
+              "storage_class": "aws-ebs"
+            }
+          },
+          "inputs": {
+            "dev_values": "helm/values.yaml"
+          },
+          "outputs": {
+            "prod_values": "{{ cookiecutter.service_slug }}/values.yaml"
+          },
+          "estimated_cost": 2.0
+        },
+        {
+          "id": "TASK-010",
+          "title": "Create Dockerfile template",
+          "description": "Generate language-specific Dockerfile with health checks and JVM tuning",
+          "dependencies": [],
+          "specification": {
+            "languages": {
+              "python": "python:3.x base, pip/poetry",
+              "go": "golang:1.x build, minimal runtime",
+              "nodejs": "node:18 base, npm/yarn"
+            },
+            "common": [
+              "HEALTHCHECK instruction",
+              "ENV variable configuration",
+              "JVM tuning (if applicable)"
+            ]
+          },
+          "inputs": {},
+          "outputs": {
+            "dockerfile": "{{ cookiecutter.service_slug }}/Dockerfile"
+          },
+          "estimated_cost": 5.0
+        },
+        {
+          "id": "TASK-011",
+          "title": "Create docker-compose.yml template",
+          "description": "Generate docker-compose for local dev mirroring Helm configuration",
+          "dependencies": [
+            "TASK-010"
+          ],
+          "specification": {
+            "services": "Single service + dependencies (if any)",
+            "volumes": "Code and data persistence mounts",
+            "environment": "Match Helm ConfigMap env vars",
+            "health_checks": "Match liveness/readiness probes",
+            "ports": "Expose service on localhost"
+          },
+          "inputs": {
+            "dockerfile": "Dockerfile"
+          },
+          "outputs": {
+            "compose": "{{ cookiecutter.service_slug }}/docker-compose.yml"
+          },
+          "estimated_cost": 4.0
+        },
+        {
+          "id": "TASK-012",
+          "title": "Create ArgoCD ApplicationSet template",
+          "description": "Generate ApplicationSet for GitOps sync with auto-prune and retry logic",
+          "dependencies": [
+            "TASK-003"
+          ],
+          "specification": {
+            "generators": "Templated for multi-env (dev, staging, prod)",
+            "sync_policy": "auto-prune: true, selfHeal: true",
+            "retry": "5 attempts, exponential backoff to 3m",
+            "ignore_differences": "Ignore PVC and StatefulSet rolling changes"
+          },
+          "inputs": {
+            "chart": "Chart.yaml"
+          },
+          "outputs": {
+            "applicationset": "{{ cookiecutter.service_slug }}/argocd/applicationset.yaml"
+          },
+          "estimated_cost": 5.0
+        },
+        {
+          "id": "TASK-013",
+          "title": "Create GitHub Actions CI/CD workflow template",
+          "description": "Generate .github/workflows/ci.yml for lint, test, build, and push",
+          "dependencies": [
+            "TASK-001"
+          ],
+          "specification": {
+            "triggers": [
+              "push to all branches",
+              "PRs"
+            ],
+            "jobs": [
+              "lint",
+              "test",
+              "build",
+              "helm-lint",
+              "push (on main/master only)"
+            ]
+          },
+          "inputs": {},
+          "outputs": {
+            "workflow": "{{ cookiecutter.service_slug }}/.github/workflows/ci.yml"
+          },
+          "estimated_cost": 4.0
+        },
+        {
+          "id": "TASK-014",
+          "title": "Create Makefile/Taskfile with common commands",
+          "description": "Generate automation file with deploy, validate, logs, test, clean targets",
+          "dependencies": [
+            "TASK-003",
+            "TASK-011"
+          ],
+          "specification": {
+            "targets": {
+              "deploy": "helm install to current cluster",
+              "deploy-dev": "helm install with dev overrides",
+              "validate": "helm lint + dry-run",
+              "logs": "kubectl logs streaming",
+              "test": "Run integration tests",
+              "clean": "Remove resources"
+            }
+          },
+          "inputs": {
+            "helm": "helm/",
+            "compose": "docker-compose.yml"
+          },
+          "outputs": {
+            "makefile": "{{ cookiecutter.service_slug }}/Makefile"
+          },
+          "estimated_cost": 4.0
+        },
+        {
+          "id": "TASK-015",
+          "title": "Create documentation templates",
+          "description": "Generate DEPLOYMENT.md, DEVELOPMENT.md, OPERATIONS.md, README.md, and CLAUDE.md",
+          "dependencies": [
+            "TASK-014"
+          ],
+          "specification": {
+            "DEPLOYMENT.md": "Helm, ArgoCD, cloud-specific instructions",
+            "DEVELOPMENT.md": "Local setup (docker-compose, prerequisites)",
+            "OPERATIONS.md": "Troubleshooting, monitoring, scaling",
+            "README.md": "Quick start and doc links",
+            "CLAUDE.md": "Project rules and imports"
+          },
+          "inputs": {},
+          "outputs": {
+            "docs": [
+              "README.md",
+              "DEPLOYMENT.md",
+              "DEVELOPMENT.md",
+              "OPERATIONS.md",
+              "CLAUDE.md"
+            ]
+          },
+          "estimated_cost": 6.0
+        },
+        {
+          "id": "TASK-016",
+          "title": "Configure cross-repo rules imports in CLAUDE.md",
+          "description": "Set up @shared-claude-rules imports for conventions (git, testing, secrets, docs)",
+          "dependencies": [
+            "TASK-015"
+          ],
+          "specification": {
+            "imports": [
+              "@shared-claude-rules/workflow/git.md",
+              "@shared-claude-rules/workflow/docs.md",
+              "@shared-claude-rules/testing.md",
+              "@shared-claude-rules/secrets.md"
+            ]
+          },
+          "inputs": {
+            "claude_md_template": "CLAUDE.md"
+          },
+          "outputs": {
+            "configured": "CLAUDE.md with imports"
+          },
+          "estimated_cost": 2.0
+        },
+        {
+          "id": "TASK-017",
+          "title": "Implement post_gen_project.py hook",
+          "description": "Implement hook that runs git init, initial commit, GitHub repo creation, tooling setup",
+          "dependencies": [
+            "TASK-002",
+            "TASK-014"
+          ],
+          "specification": {
+            "steps": [
+              "git init and initial commit",
+              "create git tag for version",
+              "Install language-specific tooling (Poetry, go mod, npm)",
+              "gh repo create (if enabled)",
+              "Setup pre-commit hooks",
+              "Run initial tests/validation"
+            ]
+          },
+          "inputs": {
+            "hook_template": "hooks/post_gen_project.py"
+          },
+          "outputs": {
+            "hook": "hooks/post_gen_project.py"
+          },
+          "estimated_cost": 8.0
+        },
+        {
+          "id": "TASK-018",
+          "title": "Create language-specific stubs (Python, Go, Node.js)",
+          "description": "Generate {{ cookiecutter.service_slug }}/ subdirectories with language-specific scaffolds",
+          "dependencies": [
+            "TASK-001"
+          ],
+          "specification": {
+            "python": "src/package/, pyproject.toml, pytest setup",
+            "go": "main.go, go.mod, Makefile targets",
+            "nodejs": "src/, package.json, jest setup"
+          },
+          "inputs": {
+            "manifest": "cookiecutter.json"
+          },
+          "outputs": {
+            "stubs": "Language-specific src/ directories"
+          },
+          "estimated_cost": 6.0
+        },
+        {
+          "id": "TASK-019",
+          "title": "Implement pre-generation input validation and testing",
+          "description": "Test pre_gen_project hook with valid and invalid inputs",
+          "dependencies": [
+            "TASK-002"
+          ],
+          "specification": {
+            "valid_cases": [
+              "valid slug, identifier, version",
+              "all languages"
+            ],
+            "invalid_cases": [
+              "invalid slug (uppercase)",
+              "invalid identifier",
+              "malformed version",
+              "unsupported language"
+            ]
+          },
+          "inputs": {
+            "hook": "hooks/pre_gen_project.py"
+          },
+          "outputs": {
+            "test_results": "Validation report"
+          },
+          "estimated_cost": 4.0
+        },
+        {
+          "id": "TASK-020",
+          "title": "Test Helm template rendering",
+          "description": "Render Helm templates with test values; validate YAML syntax",
+          "dependencies": [
+            "TASK-005",
+            "TASK-006",
+            "TASK-007",
+            "TASK-008"
+          ],
+          "specification": {
+            "tests": [
+              "helm lint",
+              "helm template dry-run",
+              "YAML validation",
+              "Verify ConfigMap and PVC presence",
+              "Check probe configuration"
+            ]
+          },
+          "inputs": {
+            "helm_templates": "helm/templates/"
+          },
+          "outputs": {
+            "test_report": "Helm rendering validation"
+          },
+          "estimated_cost": 5.0
+        },
+        {
+          "id": "TASK-021",
+          "title": "Test Docker image builds for all languages",
+          "description": "Build Docker images for Python, Go, Node.js; verify health checks",
+          "dependencies": [
+            "TASK-010"
+          ],
+          "specification": {
+            "languages": [
+              "python:3.x",
+              "go:1.x",
+              "nodejs:18"
+            ],
+            "verification": [
+              "Image builds successfully",
+              "HEALTHCHECK instruction present",
+              "Runs without errors"
+            ]
+          },
+          "inputs": {
+            "dockerfile_template": "Dockerfile"
+          },
+          "outputs": {
+            "build_report": "Docker build validation"
+          },
+          "estimated_cost": 6.0
+        },
+        {
+          "id": "TASK-022",
+          "title": "Test docker-compose up and service health",
+          "description": "Run docker-compose up locally; verify services are healthy and reachable",
+          "dependencies": [
+            "TASK-011"
+          ],
+          "specification": {
+            "tests": [
+              "docker-compose up succeeds",
+              "Services reach healthy state",
+              "Port mappings work",
+              "Environment variables are set",
+              "docker-compose down cleans up"
+            ]
+          },
+          "inputs": {
+            "compose_template": "docker-compose.yml"
+          },
+          "outputs": {
+            "test_report": "Docker Compose validation"
+          },
+          "estimated_cost": 5.0
+        },
+        {
+          "id": "TASK-023",
+          "title": "End-to-end template validation",
+          "description": "Generate a service from template; validate all artifacts are created, git init works, deployment is possible",
+          "dependencies": [
+            "TASK-017",
+            "TASK-020",
+            "TASK-021",
+            "TASK-022"
+          ],
+          "specification": {
+            "steps": [
+              "Run cookiecutter with test inputs",
+              "Verify directory structure",
+              "Check Helm templates render",
+              "Verify Docker builds",
+              "Test docker-compose startup",
+              "Test GitHub repo creation (optional)",
+              "Verify post-hook executed successfully"
+            ]
+          },
+          "inputs": {
+            "all_components": "cookiecutter.json, hooks, templates"
+          },
+          "outputs": {
+            "e2e_report": "End-to-end validation report, generated service directory"
+          },
+          "estimated_cost": 8.0
+        },
+        {
+          "id": "TASK-024",
+          "title": "Documentation and deployment instructions",
+          "description": "Write comprehensive guide on using the template, customizing generated services, and deploying to Kubernetes",
+          "dependencies": [
+            "TASK-015",
+            "TASK-023"
+          ],
+          "specification": {
+            "content": [
+              "Quick-start guide",
+              "Variable reference",
+              "Customization guide",
+              "Kubernetes deployment walkthrough",
+              "Troubleshooting common issues"
+            ]
+          },
+          "inputs": {
+            "generated_docs": "DEPLOYMENT.md, DEVELOPMENT.md, OPERATIONS.md, README.md"
+          },
+          "outputs": {
+            "guide": "Template usage documentation"
+          },
+          "estimated_cost": 4.0
+        }
+      ],
+      "tasks": null,
+      "dependencies": {},
+      "estimated_duration": null,
+      "created_at": "2026-04-18 21:56:40",
+      "pipeline_id": null,
+      "status": "draft",
+      "priority": "high",
+      "tags": [
+        "infrastructure",
+        "cookiecutter",
+        "kubernetes",
+        "helm"
+      ],
+      "notes": "This plan decomposes all 12 PRD requirements into 24 concrete, dependency-aware tasks for deterministic execution.",
+      "_created_at": 1776542200.516497,
+      "_updated_at": 1776542200.516497
+    }
+  },
+  "task_executions": {
+    "1": {
+      "task_id": "TASK-001",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.019327,
+      "_updated_at": 1776542203.019327
+    },
+    "2": {
+      "task_id": "TASK-002",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.020969,
+      "_updated_at": 1776542203.020969
+    },
+    "3": {
+      "task_id": "TASK-003",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.0220668,
+      "_updated_at": 1776542203.0220668
+    },
+    "4": {
+      "task_id": "TASK-004",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.023115,
+      "_updated_at": 1776542203.023115
+    },
+    "5": {
+      "task_id": "TASK-005",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.024193,
+      "_updated_at": 1776542203.024193
+    },
+    "6": {
+      "task_id": "TASK-006",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.0251882,
+      "_updated_at": 1776542203.0251882
+    },
+    "7": {
+      "task_id": "TASK-007",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.026325,
+      "_updated_at": 1776542203.026325
+    },
+    "8": {
+      "task_id": "TASK-008",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.027334,
+      "_updated_at": 1776542203.027334
+    },
+    "9": {
+      "task_id": "TASK-009",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.028362,
+      "_updated_at": 1776542203.028362
+    },
+    "10": {
+      "task_id": "TASK-010",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.029599,
+      "_updated_at": 1776542203.029599
+    },
+    "11": {
+      "task_id": "TASK-011",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.030796,
+      "_updated_at": 1776542203.030796
+    },
+    "12": {
+      "task_id": "TASK-012",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.031915,
+      "_updated_at": 1776542203.031915
+    },
+    "13": {
+      "task_id": "TASK-013",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.032963,
+      "_updated_at": 1776542203.032963
+    },
+    "14": {
+      "task_id": "TASK-014",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.034039,
+      "_updated_at": 1776542203.034039
+    },
+    "15": {
+      "task_id": "TASK-015",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.035056,
+      "_updated_at": 1776542203.035056
+    },
+    "16": {
+      "task_id": "TASK-016",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.036063,
+      "_updated_at": 1776542203.036064
+    },
+    "17": {
+      "task_id": "TASK-017",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.037079,
+      "_updated_at": 1776542203.037079
+    },
+    "18": {
+      "task_id": "TASK-018",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.038107,
+      "_updated_at": 1776542203.038107
+    },
+    "19": {
+      "task_id": "TASK-019",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.039186,
+      "_updated_at": 1776542203.039186
+    },
+    "20": {
+      "task_id": "TASK-020",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.040333,
+      "_updated_at": 1776542203.040333
+    },
+    "21": {
+      "task_id": "TASK-021",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.041539,
+      "_updated_at": 1776542203.041539
+    },
+    "22": {
+      "task_id": "TASK-022",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.042559,
+      "_updated_at": 1776542203.042559
+    },
+    "23": {
+      "task_id": "TASK-023",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.0436668,
+      "_updated_at": 1776542203.0436668
+    },
+    "24": {
+      "task_id": "TASK-024",
+      "plan_id": "PLAN-20260418-001",
+      "state": "PENDING",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error": null,
+      "progress": 0.0,
+      "pipeline_id": null,
+      "_created_at": 1776542203.044839,
+      "_updated_at": 1776542203.044839
+    }
+  }
+}

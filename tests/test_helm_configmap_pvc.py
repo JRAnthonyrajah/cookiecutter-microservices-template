@@ -49,13 +49,13 @@ class TestHelmConfigMapTemplate:
     def test_configmap_uses_include_for_name(self):
         """Test that ConfigMap uses include helper for name."""
         assert (
-            '{{ include "{{ cookiecutter.service_slug }}.fullname"' in self.configmap_content
+            'include "chart.fullname"' in self.configmap_content
         ), "ConfigMap name should use fullname include"
 
     def test_configmap_uses_include_for_labels(self):
         """Test that ConfigMap uses include helper for labels."""
         assert (
-            'include "{{ cookiecutter.service_slug }}.labels"' in self.configmap_content
+            'include "chart.labels"' in self.configmap_content
         ), "ConfigMap labels should use labels include"
 
     def test_configmap_has_data_section(self):
@@ -192,14 +192,14 @@ class TestHelmPVCTemplate:
     def test_pvc_uses_include_for_name(self):
         """Test that PVC uses include helper for name."""
         assert (
-            '{{ include "{{ cookiecutter.service_slug }}.fullname"' in self.pvc_content
+            'include "chart.fullname"' in self.pvc_content
         ), "PVC name should use fullname include"
         assert "-data" in self.pvc_content, "PVC name should include -data suffix"
 
     def test_pvc_uses_include_for_labels(self):
         """Test that PVC uses include helper for labels."""
         assert (
-            'include "{{ cookiecutter.service_slug }}.labels"' in self.pvc_content
+            'include "chart.labels"' in self.pvc_content
         ), "PVC labels should use labels include"
 
     def test_pvc_has_spec_section(self):
@@ -292,18 +292,18 @@ class TestHelmTemplatesIntegration:
 
         # Both should use the same fullname helper
         assert (
-            '{{ include "{{ cookiecutter.service_slug }}.fullname"' in configmap
+            'include "chart.fullname"' in configmap
         ), "ConfigMap should use fullname helper"
         assert (
-            '{{ include "{{ cookiecutter.service_slug }}.fullname"' in pvc
+            'include "chart.fullname"' in pvc
         ), "PVC should use fullname helper"
 
         # Both should use the same labels helper
         assert (
-            'include "{{ cookiecutter.service_slug }}.labels"' in configmap
+            'include "chart.labels"' in configmap
         ), "ConfigMap should use labels helper"
         assert (
-            'include "{{ cookiecutter.service_slug }}.labels"' in pvc
+            'include "chart.labels"' in pvc
         ), "PVC should use labels helper"
 
     def test_templates_directory_structure(self):

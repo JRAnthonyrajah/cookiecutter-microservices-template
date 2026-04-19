@@ -368,20 +368,20 @@ class TestHelperFunctions:
 
     def test_uses_fullname_helper(self, statefulset_data: str) -> None:
         """Verify fullname helper is used."""
-        assert "include \"{{ cookiecutter.service_slug }}.fullname\"" in statefulset_data, \
+        assert 'include "chart.fullname"' in statefulset_data, \
             "fullname helper should be used for consistent naming"
 
     def test_uses_name_helper(self, statefulset_data: str) -> None:
         """Verify name helper is used."""
-        assert "include \"{{ cookiecutter.service_slug }}.name\"" in statefulset_data, \
+        assert 'include "chart.name"' in statefulset_data, \
             "name helper should be used"
 
     def test_uses_labels_helper(self, statefulset_data: str) -> None:
         """Verify labels helper is used."""
-        assert "include \"{{ cookiecutter.service_slug }}.labels\"" in statefulset_data, \
+        assert 'include "chart.labels"' in statefulset_data, \
             "labels helper should be used for consistent labeling"
 
     def test_uses_selector_labels_helper(self, statefulset_data: str) -> None:
         """Verify selectorLabels helper is used."""
-        assert "include \"{{ cookiecutter.service_slug }}.selectorLabels\"" in statefulset_data, \
+        assert 'include "chart.selectorLabels"' in statefulset_data, \
             "selectorLabels helper should be used in selectors and matchLabels"
