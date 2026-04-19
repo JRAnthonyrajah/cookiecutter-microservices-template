@@ -1,6 +1,10 @@
 .env
+.env.local
+.DS_Store
 __pycache__/
 *.pyc
+*.py[cod]
+*$py.class
 .pytest_cache/
 .coverage
 htmlcov/

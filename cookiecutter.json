@@ -1,0 +1,16 @@
+{
+  "service_name": "My Microservice",
+  "service_slug": "my_microservice",
+  "description": "A Kubernetes microservice",
+  "language": "python",
+  "package_name": "my_microservice",
+  "version": "0.1.0",
+  "author": "K3rm1t",
+  "email": "janthonyrajah@gmail.com",
+  "license": "MIT",
+  "python_version": "3.11.0",
+  "go_version": "1.21.0",
+  "node_version": "20.10.0",
+  "create_github_repo": "yes",
+  "repo_visibility": ["private", "public"]
+}
