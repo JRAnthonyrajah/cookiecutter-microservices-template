@@ -39,16 +39,18 @@ The `{{ cookiecutter.service_slug }}` microservice is a containerized, cloud-nat
    ┌────v────┐   ┌─────v─────┐   ┌───v──────┐
    │          │   │           │   │          │
    │ Database │   │  Message  │   │   File   │
-   │(PostgreSQL) │ Queue      │   │  Storage │
-   │          │   │(RabbitMQ) │   │ (S3/GCS) │
+   │ (Primary)│   │   Queue   │   │  Storage │
+   │ (PostgreSQL) │ (RabbitMQ)│   │ (S3/GCS) │
    │          │   │           │   │          │
-   └──────────┘   └─────┬─────┘   └──────────┘
-                        │
-           ┌────────────v────────────┐
-           │   Observability Stack   │
-           │                         │
-           │ Metrics | Logs | Traces│
-           └─────────────────────────┘
+   └──────────┘   └─────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────┐
+│                    Observability Stack                           │
+│  ┌────────────┐  ┌────────────┐  ┌──────────────┐               │
+│  │   Metrics  │  │    Logs    │  │    Traces    │               │
+│  │ (Prometheus)  │ (ELK Stack)│  │  (Jaeger)    │               │
+│  └────────────┘  └────────────┘  └──────────────┘               │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 ## Service Components
@@ -57,12 +59,33 @@ The `{{ cookiecutter.service_slug }}` microservice is a containerized, cloud-nat
 
 **Responsibility**: HTTP request/response handling
 
-- **Technology**: Node.js / Express.js
+- **Technology**: Node.js / Express.js (or equivalent)
 - **Patterns**:
   - RESTful route handlers
   - Request validation middleware
   - Response serialization
   - Error handling middleware
+- **Key Files**:
+  - `src/routes/` - Route definitions
+  - `src/middleware/` - Middleware handlers
+  - `src/controllers/` - Request controllers
+
+**Example Request Flow**:
+```
+GET /api/v1/data/123
+  ↓
+Route Handler
+  ↓
+Authentication Middleware
+  ↓
+Request Validation
+  ↓
+Business Logic Layer
+  ↓
+Response Serialization
+  ↓
+200 OK (JSON Response)
+```
 
 ### 2. Business Logic Layer
 
@@ -73,6 +96,53 @@ The `{{ cookiecutter.service_slug }}` microservice is a containerized, cloud-nat
   - Domain models
   - Business rule enforcement
   - Transaction management
+- **Key Files**:
+  - `src/services/` - Business logic services
+  - `src/models/` - Domain models
+  - `src/validators/` - Input validation
+
+**Design Pattern Example**:
+```javascript
+// Service Layer Pattern
+class DataService {
+  constructor(repository, cache, messageQueue) {
+    this.repository = repository;
+    this.cache = cache;
+    this.messageQueue = messageQueue;
+  }
+
+  async getData(id) {
+    // Check cache first
+    let data = await this.cache.get(`data:${id}`);
+    if (data) return data;
+
+    // Fetch from database
+    data = await this.repository.find(id);
+    if (!data) throw new NotFoundError();
+
+    // Cache result
+    await this.cache.set(`data:${id}`, data, 3600);
+
+    return data;
+  }
+
+  async createData(input) {
+    // Validate
+    validate(input);
+
+    // Create in database
+    const data = await this.repository.create(input);
+
+    // Publish event
+    await this.messageQueue.publish('data.created', {
+      id: data.id,
+      timestamp: new Date()
+    });
+
+    return data;
+  }
+}
+```
 
 ### 3. Data Access Layer
 
@@ -83,6 +153,25 @@ The `{{ cookiecutter.service_slug }}` microservice is a containerized, cloud-nat
   - **Cache Layer**: Redis (hot data, sessions)
   - **Message Queue**: RabbitMQ (asynchronous processing)
 
+- **Patterns**:
+  - Repository Pattern
+  - Data mapper pattern
+  - Connection pooling
+  - Transaction management
+
+**Data Flow**:
+```
+Request
+  ↓
+Check Cache (Redis)
+  ↓ (Miss)
+Query Database (PostgreSQL)
+  ↓
+Update Cache (Redis)
+  ↓
+Response
+```
+
 ### 4. External Integrations
 
 **Responsibility**: Communication with external services
@@ -92,48 +181,97 @@ The `{{ cookiecutter.service_slug }}` microservice is a containerized, cloud-nat
 - Payment processing
 - Third-party APIs
 
+**Pattern**: Adapter pattern for loose coupling
+
+```javascript
+// Adapter pattern for storage
+class StorageAdapter {
+  constructor(provider) {
+    this.provider = provider; // S3, GCS, or local
+  }
+
+  async upload(key, data) {
+    return this.provider.upload(key, data);
+  }
+}
+```
+
 ## Data Flow Architecture
 
 ### Request-Response Flow
 
 ```
-Request
-  ↓
-API Gateway / Load Balancer
-  ├─ Route to instance
-  ├─ SSL termination
-  └─ Rate limiting
-  ↓
-API Handler
-  ├─ Parse request
-  ├─ Validate headers
-  └─ Route matching
-  ↓
-Authentication Middleware
-  ├─ Verify credentials
-  ├─ Check authorization
-  └─ Extract user context
-  ↓
-Request Validation
-  ├─ Schema validation
-  ├─ Business rules check
-  └─ Input sanitization
-  ↓
-Business Logic Layer
-  ├─ Core operations
-  ├─ Transactions
-  └─ Event publishing
-  ↓
-Data Access
-  ├─ Cache (Redis)
-  ├─ Database (PostgreSQL)
-  └─ Message Queue (RabbitMQ)
-  ↓
-Response Serialization
-  ↓
-Send Response
-  ↓
-Client
+┌─────────────┐
+│   Request   │
+└──────┬──────┘
+       │
+       v
+┌──────────────────────────┐
+│ API Gateway / Load       │
+│ Balancer                 │
+│ - Route to instance      │
+│ - SSL termination        │
+│ - Rate limiting          │
+└──────┬───────────────────┘
+       │
+       v
+┌──────────────────────────┐
+│ API Handler              │
+│ - Parse request          │
+│ - Validate headers       │
+│ - Route matching         │
+└──────┬───────────────────┘
+       │
+       v
+┌──────────────────────────┐
+│ Authentication           │
+│ Middleware               │
+│ - Verify credentials     │
+│ - Check authorization    │
+│ - Extract user context   │
+└──────┬───────────────────┘
+       │
+       v
+┌──────────────────────────┐
+│ Request Validation       │
+│ - Schema validation      │
+│ - Business rules check   │
+│ - Input sanitization     │
+└──────┬───────────────────┘
+       │
+       v
+┌──────────────────────────┐
+│ Business Logic Layer     │
+│ - Core operations        │
+│ - Transactions           │
+│ - Event publishing       │
+└──────┬───────────────────┘
+       │
+   ┌───┴────────────┬─────────────┐
+   │                │             │
+   v                v             v
+┌──────────┐  ┌──────────┐  ┌──────────┐
+│ Cache    │  │ Database │  │ Message  │
+│ (Redis)  │  │ (Postgres)  │ Queue    │
+└──────────┘  └──────────┘  └──────────┘
+   │                │             │
+   └────────────┬───┴──────────┬──┘
+                │              │
+                v              v
+         ┌──────────────┐  ┌────────────┐
+         │ Response     │  │ Side       │
+         │ Serialization│  │ Effects    │
+         └──────┬───────┘  │ Processing │
+                │          └────────────┘
+                v
+         ┌──────────────┐
+         │ Send Response│
+         └──────┬───────┘
+                │
+                v
+         ┌──────────────┐
+         │ Client       │
+         └──────────────┘
 ```
 
 ### Asynchronous Processing Flow
@@ -141,15 +279,15 @@ Client
 ```
 Request triggers event
   ↓
-Event published to Message Queue
+Event published to Message Queue (RabbitMQ)
   ↓
-Multiple consumers subscribe
+Multiple consumers subscribe to event
   ↓
 Parallel processing:
-  ├─ Email notification
-  ├─ Analytics update
-  ├─ Cache invalidation
-  └─ Webhook delivery
+  - Email notification
+  - Analytics update
+  - Cache invalidation
+  - Webhook delivery
   ↓
 Eventual consistency achieved
 ```
@@ -158,23 +296,137 @@ Eventual consistency achieved
 
 ### 1. Dependency Injection
 
-All services receive their dependencies through constructor injection for easy testing and loose coupling.
+All services receive their dependencies through constructor injection:
+
+```javascript
+class UserService {
+  constructor(userRepository, emailService, logger) {
+    this.userRepository = userRepository;
+    this.emailService = emailService;
+    this.logger = logger;
+  }
+}
+
+// Usage
+const userService = new UserService(
+  new UserRepository(db),
+  new EmailService(config),
+  logger
+);
+```
+
+**Benefits**:
+- Easy testing (mock dependencies)
+- Loose coupling
+- Clear dependencies
+- Flexibility in implementation
 
 ### 2. Service Locator Pattern
 
-For complex configurations or plugin systems with registry-based service discovery.
+For complex configurations or plugin systems:
+
+```javascript
+class ServiceContainer {
+  constructor() {
+    this.services = {};
+  }
+
+  register(name, service) {
+    this.services[name] = service;
+  }
+
+  get(name) {
+    return this.services[name];
+  }
+}
+
+const container = new ServiceContainer();
+container.register('userService', new UserService(...));
+const userService = container.get('userService');
+```
 
 ### 3. Repository Pattern
 
-Abstracts data access logic, providing a clean interface for data operations.
+Abstracts data access logic:
+
+```javascript
+class UserRepository {
+  async find(id) {
+    return db.query('SELECT * FROM users WHERE id = $1', [id]);
+  }
+
+  async findAll() {
+    return db.query('SELECT * FROM users');
+  }
+
+  async create(data) {
+    return db.query('INSERT INTO users (...) VALUES (...)', data);
+  }
+
+  async update(id, data) {
+    return db.query('UPDATE users SET ... WHERE id = $1', [id, ...data]);
+  }
+
+  async delete(id) {
+    return db.query('DELETE FROM users WHERE id = $1', [id]);
+  }
+}
+```
 
 ### 4. Middleware Pattern
 
-For cross-cutting concerns like authentication, logging, and error handling.
+For cross-cutting concerns:
+
+```javascript
+app.use(authenticationMiddleware);
+app.use(loggingMiddleware);
+app.use(errorHandlingMiddleware);
+
+// Request flows through each middleware
+```
 
 ### 5. Circuit Breaker Pattern
 
-For external service calls, protecting against cascading failures.
+For external service calls:
+
+```javascript
+class CircuitBreaker {
+  constructor(service, failureThreshold = 5) {
+    this.service = service;
+    this.failureCount = 0;
+    this.failureThreshold = failureThreshold;
+    this.state = 'CLOSED'; // CLOSED, OPEN, HALF_OPEN
+  }
+
+  async call(method, ...args) {
+    if (this.state === 'OPEN') {
+      throw new CircuitBreakerOpenError();
+    }
+
+    try {
+      const result = await this.service[method](...args);
+      this.onSuccess();
+      return result;
+    } catch (error) {
+      this.onFailure();
+      throw error;
+    }
+  }
+
+  onSuccess() {
+    this.failureCount = 0;
+    this.state = 'CLOSED';
+  }
+
+  onFailure() {
+    this.failureCount++;
+    if (this.failureCount >= this.failureThreshold) {
+      this.state = 'OPEN';
+      setTimeout(() => { this.state = 'HALF_OPEN'; }, 60000);
+    }
+  }
+}
+```
 
 ## Scalability Architecture
 
@@ -211,7 +463,7 @@ Shared Resources:
    - Cache warming for hot data
 
 2. **Database Optimization**:
-   - Connection pooling
+   - Connection pooling (pgBouncer)
    - Read replicas for queries
    - Write-through cache
    - Indexed queries
@@ -229,7 +481,7 @@ Shared Resources:
 ```
 Request
   ↓
-Extract credentials
+Extract credentials (Header/Query/Body)
   ↓
 Validate token/API key
   ↓
@@ -264,11 +516,27 @@ Proceed or return 401/403
 
 ### Input Validation & Sanitization
 
-- Schema validation
-- Type checking
-- Business rule validation
-- SQL injection prevention (parameterized queries)
-- XSS prevention (output sanitization)
+```javascript
+// Input validation pipeline
+const validateInput = (data) => {
+  // Schema validation
+  validateSchema(data);
+
+  // Type checking
+  validateTypes(data);
+
+  // Business rule validation
+  validateBusinessRules(data);
+
+  // SQL injection prevention
+  parameterizedQueries(data);
+
+  // XSS prevention
+  sanitizeOutput(data);
+
+  return data;
+};
+```
 
 ## Monitoring & Logging Architecture
 
@@ -281,6 +549,16 @@ Proceed or return 401/403
 - Active connections (gauge)
 - Queue length (gauge)
 - Cache hit ratio (gauge)
+
+```
+App → Prometheus Client → Metrics Endpoint
+   ↓
+Prometheus Server → Pulls metrics every 30s
+   ↓
+Grafana → Visualizes metrics
+   ↓
+AlertManager → Sends alerts
+```
 
 ### Logging
 
@@ -304,6 +582,20 @@ Kibana dashboards
 - WARN: Warning messages for potential issues
 - ERROR: Error conditions
 - FATAL: Critical failures
+
+**Log Format**:
+```json
+{
+  "timestamp": "2026-04-19T10:30:00Z",
+  "level": "INFO",
+  "service": "{{ cookiecutter.service_slug }}",
+  "request_id": "req-12345",
+  "user_id": "user-123",
+  "message": "User data retrieved",
+  "duration_ms": 45,
+  "trace_id": "trace-789"
+}
+```
 
 ### Distributed Tracing
 
@@ -331,6 +623,23 @@ Trace displayed in Jaeger UI
 - Health checks
 - Signal handling
 
+**Docker Compose** (Development):
+```yaml
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://localhost/db
+  postgres:
+    image: postgres:15
+  redis:
+    image: redis:7
+  rabbitmq:
+    image: rabbitmq:3.12
+```
+
 ### Kubernetes Deployment
 
 **Helm Charts**:
@@ -352,7 +661,7 @@ Trace displayed in Jaeger UI
 ```
 Git Push
   ↓
-CI Pipeline
+GitHub Actions
   ├─ Unit Tests
   ├─ Integration Tests
   ├─ Lint & Format
@@ -369,16 +678,83 @@ Smoke Tests
 Deploy to Production
 ```
 
+## Database Schema
+
+**Primary Tables**:
+
+```sql
+-- Data resources
+CREATE TABLE data (
+  id UUID PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  status VARCHAR(50),
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
+  created_by UUID,
+  updated_by UUID
+);
+
+-- Audit logs
+CREATE TABLE audit_logs (
+  id UUID PRIMARY KEY,
+  entity_type VARCHAR(100),
+  entity_id UUID,
+  action VARCHAR(50),
+  changes JSONB,
+  user_id UUID,
+  timestamp TIMESTAMP DEFAULT NOW()
+);
+
+-- API keys
+CREATE TABLE api_keys (
+  id UUID PRIMARY KEY,
+  key_hash VARCHAR(255) UNIQUE,
+  name VARCHAR(255),
+  user_id UUID,
+  permissions TEXT[],
+  rate_limit INTEGER,
+  created_at TIMESTAMP DEFAULT NOW(),
+  last_used TIMESTAMP,
+  expires_at TIMESTAMP
+);
+```
+
+**Indexing Strategy**:
+```sql
+CREATE INDEX idx_data_status ON data(status);
+CREATE INDEX idx_data_created_at ON data(created_at DESC);
+CREATE INDEX idx_audit_logs_entity ON audit_logs(entity_type, entity_id);
+CREATE INDEX idx_api_keys_key_hash ON api_keys(key_hash);
+```
+
 ## Configuration Management
 
 **Environment Variables**:
 ```bash
+# Service
 SERVICE_NAME={{ cookiecutter.service_slug }}
 SERVICE_PORT={{ cookiecutter.service_port }}
 LOG_LEVEL=INFO
+
+# Database
 DATABASE_URL=postgresql://user:password@localhost:5432/db
+DATABASE_POOL_SIZE=20
+DATABASE_TIMEOUT=30
+
+# Cache
 REDIS_URL=redis://localhost:6379
+CACHE_TTL=3600
+
+# Message Queue
 RABBITMQ_URL=amqp://localhost:5672
+RABBITMQ_QUEUE={{ cookiecutter.service_slug }}.events
+
+# External Services
+AWS_REGION=us-east-1
+AWS_S3_BUCKET=my-bucket
+
+# Security
 JWT_SECRET=your-secret-key
 API_KEY_SALT=your-salt
 ```
@@ -388,7 +764,7 @@ API_KEY_SALT=your-salt
 ### Error Taxonomy
 
 ```
-├─ Client Errors (4xx)
+┌─ Client Errors (4xx)
 │  ├─ Validation Errors (400)
 │  ├─ Authentication Errors (401)
 │  ├─ Authorization Errors (403)

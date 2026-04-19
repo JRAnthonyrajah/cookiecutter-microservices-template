@@ -62,6 +62,27 @@ All responses follow a consistent envelope:
 }
 ```
 
+Error responses:
+
+```json
+{
+  "success": false,
+  "data": null,
+  "error": {
+    "code": "INVALID_REQUEST",
+    "message": "The request parameters are invalid",
+    "details": {
+      "field": "email",
+      "reason": "Email format is invalid"
+    }
+  },
+  "metadata": {
+    "request_id": "req-12345",
+    "timestamp": "2026-04-19T10:30:01Z"
+  }
+}
+```
+
 ## HTTP Status Codes
 
 | Code | Description | Use Case |
@@ -93,6 +114,8 @@ X-RateLimit-Limit: 1000
 X-RateLimit-Remaining: 999
 X-RateLimit-Reset: 2026-04-19T10:45:00Z
 ```
+
+When the rate limit is exceeded, the API returns a `429 Too Many Requests` status.
 
 ## Endpoints
 
@@ -184,6 +207,26 @@ curl -X GET http://localhost:{{ cookiecutter.service_port }}/api/v1/data/123 \
 }
 ```
 
+**Response (404 Not Found):**
+
+```json
+{
+  "success": false,
+  "data": null,
+  "error": {
+    "code": "RESOURCE_NOT_FOUND",
+    "message": "The requested resource was not found",
+    "details": {
+      "resource_id": "123"
+    }
+  },
+  "metadata": {
+    "request_id": "req-12345",
+    "timestamp": "2026-04-19T10:30:00Z"
+  }
+}
+```
+
 ### 3. Create Data
 
 **POST** `/data`
@@ -192,13 +235,31 @@ Create a new data resource.
 
 **Authentication**: Required (API Key or Bearer Token)
 
+**Request Body:**
+
+```json
+{
+  "name": "New Resource",
+  "description": "A new resource",
+  "tags": ["tag1", "tag2"],
+  "metadata": {
+    "custom_field": "value"
+  }
+}
+```
+
 **Request:**
 
 ```bash
 curl -X POST http://localhost:{{ cookiecutter.service_port }}/api/v1/data \
   -H "Content-Type: application/json" \
   -H "X-API-Key: your-api-key" \
-  -d '{"name": "New Resource", "description": "A new resource"}'
+  -H "X-Request-ID: req-12346" \
+  -d '{
+    "name": "New Resource",
+    "description": "A new resource",
+    "tags": ["tag1", "tag2"]
+  }'
 ```
 
 **Response (201 Created):**
@@ -209,8 +270,11 @@ curl -X POST http://localhost:{{ cookiecutter.service_port }}/api/v1/data \
   "data": {
     "id": "124",
     "name": "New Resource",
+    "description": "A new resource",
+    "tags": ["tag1", "tag2"],
     "status": "active",
-    "created_at": "2026-04-19T10:30:00Z"
+    "created_at": "2026-04-19T10:30:00Z",
+    "updated_at": "2026-04-19T10:30:00Z"
   },
   "error": null,
   "metadata": {
@@ -222,19 +286,59 @@ curl -X POST http://localhost:{{ cookiecutter.service_port }}/api/v1/data \
 
 ### 4. Update Data
 
-**PUT** `/data/{id}` - Full replacement
+**PUT** `/data/{id}`
 
-**PATCH** `/data/{id}` - Partial update
+Update an existing data resource (full replacement).
+
+**PATCH** `/data/{id}`
+
+Partially update a data resource.
 
 **Authentication**: Required (API Key or Bearer Token)
+
+**Path Parameters:**
+
+| Name | Type | Description |
+|------|------|-------------|
+| `id` | string | The unique identifier of the resource |
+
+**Request Body (PUT):**
+
+```json
+{
+  "name": "Updated Resource",
+  "description": "An updated resource",
+  "tags": ["updated-tag"]
+}
+```
+
+**Request Body (PATCH):**
+
+```json
+{
+  "name": "Updated Resource"
+}
+```
 
 **Request:**
 
 ```bash
+# Full update (PUT)
+curl -X PUT http://localhost:{{ cookiecutter.service_port }}/api/v1/data/123 \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: your-api-key" \
+  -d '{
+    "name": "Updated Resource",
+    "description": "An updated resource"
+  }'
+
+# Partial update (PATCH)
 curl -X PATCH http://localhost:{{ cookiecutter.service_port }}/api/v1/data/123 \
   -H "Content-Type: application/json" \
   -H "X-API-Key: your-api-key" \
-  -d '{"name": "Updated Resource"}'
+  -d '{
+    "name": "Updated Resource"
+  }'
 ```
 
 **Response (200 OK):**
@@ -245,7 +349,9 @@ curl -X PATCH http://localhost:{{ cookiecutter.service_port }}/api/v1/data/123 \
   "data": {
     "id": "123",
     "name": "Updated Resource",
+    "description": "An updated resource",
     "status": "active",
+    "created_at": "2026-04-18T10:30:00Z",
     "updated_at": "2026-04-19T10:31:00Z"
   },
   "error": null,
@@ -264,6 +370,12 @@ Delete a data resource.
 
 **Authentication**: Required (API Key or Bearer Token)
 
+**Path Parameters:**
+
+| Name | Type | Description |
+|------|------|-------------|
+| `id` | string | The unique identifier of the resource |
+
 **Request:**
 
 ```bash
@@ -274,6 +386,23 @@ curl -X DELETE http://localhost:{{ cookiecutter.service_port }}/api/v1/data/123 
 **Response (204 No Content):**
 
 No response body. Status code indicates success.
+
+**Response (404 Not Found):**
+
+```json
+{
+  "success": false,
+  "data": null,
+  "error": {
+    "code": "RESOURCE_NOT_FOUND",
+    "message": "The requested resource was not found"
+  },
+  "metadata": {
+    "request_id": "req-12348",
+    "timestamp": "2026-04-19T10:32:00Z"
+  }
+}
+```
 
 ### 6. List Data
 
@@ -289,14 +418,14 @@ List all data resources with optional filtering and pagination.
 |------|------|---------|-------------|
 | `page` | integer | 1 | Page number for pagination |
 | `limit` | integer | 20 | Number of items per page (max: 100) |
-| `sort` | string | -created_at | Sort field and direction |
-| `filter` | string | | Filter expression |
+| `sort` | string | -created_at | Sort field and direction (prefix with `-` for descending) |
+| `filter` | string | | Filter expression (e.g., `status:active`) |
 | `search` | string | | Full-text search query |
 
 **Request:**
 
 ```bash
-curl -X GET "http://localhost:{{ cookiecutter.service_port }}/api/v1/data?page=1&limit=10&sort=-created_at" \
+curl -X GET "http://localhost:{{ cookiecutter.service_port }}/api/v1/data?page=1&limit=10&sort=-created_at&filter=status:active" \
   -H "X-API-Key: your-api-key"
 ```
 
@@ -311,6 +440,12 @@ curl -X GET "http://localhost:{{ cookiecutter.service_port }}/api/v1/data?page=1
       "name": "Resource 1",
       "status": "active",
       "created_at": "2026-04-18T10:30:00Z"
+    },
+    {
+      "id": "124",
+      "name": "Resource 2",
+      "status": "active",
+      "created_at": "2026-04-19T10:30:00Z"
     }
   ],
   "error": null,
@@ -329,20 +464,41 @@ curl -X GET "http://localhost:{{ cookiecutter.service_port }}/api/v1/data?page=1
 
 ## Error Handling
 
-The API uses standard HTTP status codes and provides detailed error information.
+The API uses standard HTTP status codes and provides detailed error information:
+
+### Error Response Structure
+
+```json
+{
+  "success": false,
+  "data": null,
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable error message",
+    "details": {
+      "field": "value",
+      "reason": "explanation"
+    }
+  },
+  "metadata": {
+    "request_id": "req-12345",
+    "timestamp": "2026-04-19T10:30:00Z"
+  }
+}
+```
 
 ### Common Error Codes
 
-| Code | HTTP Status | Description |
-|------|-------------|-------------|
-| `INVALID_REQUEST` | 400 | Request parameters are invalid |
-| `UNAUTHORIZED` | 401 | Authentication is missing or invalid |
-| `FORBIDDEN` | 403 | Insufficient permissions |
-| `RESOURCE_NOT_FOUND` | 404 | Requested resource does not exist |
-| `CONFLICT` | 409 | Resource conflict (e.g., duplicate) |
-| `RATE_LIMITED` | 429 | Rate limit exceeded |
-| `INTERNAL_ERROR` | 500 | Unexpected server error |
-| `SERVICE_UNAVAILABLE` | 503 | Service temporarily unavailable |
+| Code | HTTP Status | Description | Recovery |
+|------|-------------|-------------|----------|
+| `INVALID_REQUEST` | 400 | Request parameters are invalid | Fix parameters and retry |
+| `UNAUTHORIZED` | 401 | Authentication is missing or invalid | Provide valid credentials |
+| `FORBIDDEN` | 403 | Insufficient permissions | Request access or use different credentials |
+| `RESOURCE_NOT_FOUND` | 404 | Requested resource does not exist | Verify resource ID and retry |
+| `CONFLICT` | 409 | Resource conflict (e.g., duplicate) | Resolve conflict and retry |
+| `RATE_LIMITED` | 429 | Rate limit exceeded | Wait and retry after reset |
+| `INTERNAL_ERROR` | 500 | Unexpected server error | Check service logs and retry |
+| `SERVICE_UNAVAILABLE` | 503 | Service temporarily unavailable | Retry with exponential backoff |
 
 ## OpenAPI/Swagger Specification
 
@@ -354,11 +510,81 @@ GET /api/v1/docs
 GET /api/v1/docs/swagger
 ```
 
+### OpenAPI Definition
+
+```yaml
+openapi: 3.0.0
+info:
+  title: {{ cookiecutter.service_name }} API
+  description: API for {{ cookiecutter.service_slug }} microservice
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@example.com
+servers:
+  - url: http://localhost:{{ cookiecutter.service_port }}/api/v1
+    description: Development server
+  - url: https://api.example.com/api/v1
+    description: Production server
+paths:
+  /health:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: Service is healthy
+  /data:
+    get:
+      summary: List resources
+      security:
+        - ApiKeyAuth: []
+        - BearerAuth: []
+      responses:
+        '200':
+          description: List of resources
+    post:
+      summary: Create resource
+      security:
+        - ApiKeyAuth: []
+        - BearerAuth: []
+      responses:
+        '201':
+          description: Resource created
+  /data/{id}:
+    get:
+      summary: Get resource
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Resource found
+        '404':
+          description: Resource not found
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    in: header
+    name: X-API-Key
+  BearerAuth:
+    type: http
+    scheme: bearer
+```
+
 ## Versioning
 
-The API uses URL-based versioning. Current version: `v1` (e.g., `/api/v1/data`)
+The API uses URL-based versioning:
 
-Breaking changes will trigger a new version. Non-breaking changes are made to the current version.
+- Current version: `v1` (e.g., `/api/v1/data`)
+- Future versions will be available at `/api/v2`, `/api/v3`, etc.
+
+Breaking changes will trigger a new version. Non-breaking changes (adding fields, endpoints) are made to the current version.
 
 ## Rate Limiting Strategy
 
@@ -368,6 +594,8 @@ The API implements a token bucket algorithm:
 2. **Consumption**: Each request consumes 1-N tokens depending on endpoint
 3. **Bucket Size**: Maximum tokens stored (burst capacity)
 4. **Reset**: Tokens refill at the specified rate
+
+Heavy endpoints (e.g., list operations) may consume more tokens.
 
 ## Pagination
 
@@ -383,6 +611,20 @@ GET /data?page=2&limit=20
 GET /data?cursor=abc123&limit=20
 ```
 
+Responses include pagination metadata:
+```json
+{
+  "pagination": {
+    "page": 2,
+    "limit": 20,
+    "total": 500,
+    "total_pages": 25,
+    "next_cursor": "def456",
+    "prev_cursor": "abc122"
+  }
+}
+```
+
 ## Webhooks (Optional)
 
 If webhooks are supported, register them at:
@@ -392,6 +634,12 @@ POST /webhooks/subscribe
 DELETE /webhooks/unsubscribe
 GET /webhooks/list
 ```
+
+Webhook events are sent to your registered endpoint with:
+- Event type (e.g., `resource.created`)
+- Timestamp
+- Resource data
+- Signature (for verification)
 
 ## SDK Support
 
