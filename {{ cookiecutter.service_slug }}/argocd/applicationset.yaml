@@ -1,0 +1,57 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: {{ cookiecutter.service_slug }}
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: dev
+            namespace: "{{ cookiecutter.service_slug }}-dev"
+            cluster: "in-cluster"
+          - name: staging
+            namespace: "{{ cookiecutter.service_slug }}-staging"
+            cluster: "in-cluster"
+          - name: prod
+            namespace: "{{ cookiecutter.service_slug }}-prod"
+            cluster: "in-cluster"
+  template:
+    metadata:
+      name: "{{ cookiecutter.service_slug }}-{{ '{{' }}element.name{{ '}}' }}"
+      namespace: argocd
+    spec:
+      project: default
+      source:
+        repoURL: "{{ cookiecutter.repo_url | default('https://github.com') }}"
+        path: "helm"
+        targetRevision: HEAD
+        helm:
+          releaseName: "{{ cookiecutter.service_slug }}-{{ '{{' }}element.name{{ '}}' }}"
+          values: |
+            environment: {{ '{{' }}element.name{{ '}}' }}
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: "{{ '{{' }}element.namespace{{ '}}' }}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m
+      ignoreDifferences:
+        - group: v1
+          kind: PersistentVolumeClaim
+          jsonPointers:
+            - /spec/resources/requests/storage
+        - group: apps
+          kind: StatefulSet
+          jsonPointers:
+            - /spec/template/spec/containers/0/image
+            - /spec/template/metadata/labels/version

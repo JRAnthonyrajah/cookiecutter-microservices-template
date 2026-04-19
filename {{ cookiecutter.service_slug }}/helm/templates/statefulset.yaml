@@ -1,0 +1,119 @@
+{{- /*
+StatefulSet for {{ cookiecutter.service_name }}
+Provides ordered pod naming and persistent storage for stateful workloads.
+*/}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "{{ cookiecutter.service_slug }}.fullname" . }}
+  labels:
+    {{- include "{{ cookiecutter.service_slug }}.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "{{ cookiecutter.service_slug }}.fullname" . }}
+  podManagementPolicy: Parallel
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "{{ cookiecutter.service_slug }}.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "{{ cookiecutter.service_slug }}.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.securityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ include "{{ cookiecutter.service_slug }}.name" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.service.targetPort }}
+          protocol: TCP
+        env:
+        {{- if .Values.env }}
+        {{- toYaml .Values.env | nindent 8 }}
+        {{- end }}
+        {{- if .Values.jvm.heapMin }}
+        - name: JVM_HEAP_MIN
+          value: {{ .Values.jvm.heapMin | quote }}
+        {{- end }}
+        {{- if .Values.jvm.heapMax }}
+        - name: JVM_HEAP_MAX
+          value: {{ .Values.jvm.heapMax | quote }}
+        {{- end }}
+        {{- if .Values.jvm.jvmOpts }}
+        - name: JVM_OPTS
+          value: {{ .Values.jvm.jvmOpts | quote }}
+        {{- end }}
+        {{- if .Values.configMap.enabled }}
+        envFrom:
+        - configMapRef:
+            name: {{ include "{{ cookiecutter.service_slug }}.fullname" . }}
+        {{- end }}
+        {{- with .Values.resources }}
+        resources:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        livenessProbe:
+          tcpSocket:
+            port: http
+          initialDelaySeconds: {{ .Values.healthChecks.liveness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.healthChecks.liveness.periodSeconds }}
+          timeoutSeconds: {{ .Values.healthChecks.liveness.timeoutSeconds }}
+          failureThreshold: {{ .Values.healthChecks.liveness.failureThreshold }}
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "netstat -tuln | grep -q {{ .Values.service.targetPort }} || exit 1"
+          initialDelaySeconds: {{ .Values.healthChecks.readiness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.healthChecks.readiness.periodSeconds }}
+          timeoutSeconds: {{ .Values.healthChecks.readiness.timeoutSeconds }}
+          failureThreshold: {{ .Values.healthChecks.readiness.failureThreshold }}
+        {{- if .Values.storage.enabled }}
+        volumeMounts:
+        - name: data
+          mountPath: {{ .Values.storage.mountPath }}
+        {{- end }}
+      {{- if .Values.affinity }}
+      affinity:
+        {{- toYaml .Values.affinity | nindent 8 }}
+      {{- else }}
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - {{ include "{{ cookiecutter.service_slug }}.name" . }}
+              topologyKey: kubernetes.io/hostname
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  {{- if .Values.storage.enabled }}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      {{- if .Values.storage.storageClassName }}
+      storageClassName: {{ .Values.storage.storageClassName }}
+      {{- end }}
+      resources:
+        requests:
+          storage: {{ .Values.storage.size }}
+  {{- end }}

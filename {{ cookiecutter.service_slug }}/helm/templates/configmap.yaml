@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "{{ cookiecutter.service_slug }}.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    {{- include "{{ cookiecutter.service_slug }}.labels" . | nindent 4 }}
+data:
+  SERVICE_NAME: {{ .Values.config.serviceName | quote }}
+  LOG_LEVEL: {{ .Values.config.logLevel | quote }}
+  COMPRESSION: {{ .Values.config.compression | quote }}
+  ENABLE_METRICS: {{ .Values.config.enableMetrics | quote }}
+  ENABLE_TRACING: {{ .Values.config.enableTracing | quote }}
+  HTTP_PORT: {{ .Values.config.httpPort | quote }}
+  HEALTH_CHECK_INTERVAL: {{ .Values.config.healthCheckInterval | quote }}
+{{- with .Values.config.customEnvVars }}
+  {{- toYaml . | nindent 2 }}
+{{- end }}
