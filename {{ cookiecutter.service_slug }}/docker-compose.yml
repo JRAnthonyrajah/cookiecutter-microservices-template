@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  {{ cookiecutter.service_slug }}:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: {{ cookiecutter.service_slug }}-dev
+    ports:
+      - "{{ cookiecutter.service_port | default('8080') }}:{{ cookiecutter.service_port | default('8080') }}"
+    environment:
+      # Service configuration matching Helm ConfigMap
+      SERVICE_NAME: {{ cookiecutter.service_name }}
+      LOG_LEVEL: ${LOG_LEVEL:-DEBUG}
+      COMPRESSION: ${COMPRESSION:-gzip}
+      ENABLE_METRICS: ${ENABLE_METRICS:-true}
+      ENABLE_TRACING: ${ENABLE_TRACING:-false}
+      HTTP_PORT: {{ cookiecutter.service_port | default('8080') }}
+      HEALTH_CHECK_INTERVAL: ${HEALTH_CHECK_INTERVAL:-30}
+      # JVM configuration (optional)
+      {% if cookiecutter.language == 'java' -%}
+      JVM_HEAP_MIN: ${JVM_HEAP_MIN:-512m}
+      JVM_HEAP_MAX: ${JVM_HEAP_MAX:-2048m}
+      JVM_OPTS: ${JVM_OPTS:-}
+      {% endif -%}
+    volumes:
+      # Code mount for hot reload
+      - .:/app
+      # Data persistence volume
+      - {{ cookiecutter.service_slug }}-data:/data
+    healthcheck:
+      # Mirror Helm liveness probe (TCP socket)
+      test: ["CMD", "nc", "-z", "localhost", "{{ cookiecutter.service_port | default('8080') }}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+    networks:
+      - {{ cookiecutter.service_slug }}-network
+
+volumes:
+  {{ cookiecutter.service_slug }}-data:
+    driver: local
+
+networks:
+  {{ cookiecutter.service_slug }}-network:
+    driver: bridge
