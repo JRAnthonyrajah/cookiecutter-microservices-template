@@ -1,0 +1,1637 @@
+[
+  {
+    "timestamp": "2026-04-19T07:46:19.211874",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.401684599999994,
+        "total_duration_ms": 42234555,
+        "total_api_duration_ms": 3409489,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92596,
+        "total_output_tokens": 349824,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 10,
+          "output_tokens": 22,
+          "cache_creation_input_tokens": 8393,
+          "cache_read_input_tokens": 82587
+        },
+        "used_percentage": 45,
+        "remaining_percentage": 55
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:19.212318",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.401684599999994,
+        "total_duration_ms": 42234555,
+        "total_api_duration_ms": 3409489,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92596,
+        "total_output_tokens": 349824,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 10,
+          "output_tokens": 22,
+          "cache_creation_input_tokens": 8393,
+          "cache_read_input_tokens": 82587
+        },
+        "used_percentage": 45,
+        "remaining_percentage": 55
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:19.649950",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.401684599999994,
+        "total_duration_ms": 42234994,
+        "total_api_duration_ms": 3409489,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92596,
+        "total_output_tokens": 349824,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 10,
+          "output_tokens": 22,
+          "cache_creation_input_tokens": 8393,
+          "cache_read_input_tokens": 82587
+        },
+        "used_percentage": 45,
+        "remaining_percentage": 55
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:19.650483",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.401684599999994,
+        "total_duration_ms": 42234994,
+        "total_api_duration_ms": 3409489,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92596,
+        "total_output_tokens": 349824,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 10,
+          "output_tokens": 22,
+          "cache_creation_input_tokens": 8393,
+          "cache_read_input_tokens": 82587
+        },
+        "used_percentage": 45,
+        "remaining_percentage": 55
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:21.499850",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.401684599999994,
+        "total_duration_ms": 42236842,
+        "total_api_duration_ms": 3409489,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92596,
+        "total_output_tokens": 349824,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 10,
+          "output_tokens": 22,
+          "cache_creation_input_tokens": 8393,
+          "cache_read_input_tokens": 82587
+        },
+        "used_percentage": 45,
+        "remaining_percentage": 55
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:21.500247",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.401684599999994,
+        "total_duration_ms": 42236842,
+        "total_api_duration_ms": 3409489,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92596,
+        "total_output_tokens": 349824,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 10,
+          "output_tokens": 22,
+          "cache_creation_input_tokens": 8393,
+          "cache_read_input_tokens": 82587
+        },
+        "used_percentage": 45,
+        "remaining_percentage": 55
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:22.976094",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.423694549999993,
+        "total_duration_ms": 42238317,
+        "total_api_duration_ms": 3418460,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92606,
+        "total_output_tokens": 350474,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 10,
+          "output_tokens": 650,
+          "cache_creation_input_tokens": 8393,
+          "cache_read_input_tokens": 82587
+        },
+        "used_percentage": 45,
+        "remaining_percentage": 55
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:22.976569",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.423694549999993,
+        "total_duration_ms": 42238317,
+        "total_api_duration_ms": 3418460,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92606,
+        "total_output_tokens": 350474,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 10,
+          "output_tokens": 650,
+          "cache_creation_input_tokens": 8393,
+          "cache_read_input_tokens": 82587
+        },
+        "used_percentage": 45,
+        "remaining_percentage": 55
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:25.634736",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.434719299999994,
+        "total_duration_ms": 42240979,
+        "total_api_duration_ms": 3420861,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92614,
+        "total_output_tokens": 350674,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 200,
+          "cache_creation_input_tokens": 735,
+          "cache_read_input_tokens": 90980
+        },
+        "used_percentage": 46,
+        "remaining_percentage": 54
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:25.635246",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.434719299999994,
+        "total_duration_ms": 42240979,
+        "total_api_duration_ms": 3420861,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92614,
+        "total_output_tokens": 350674,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 200,
+          "cache_creation_input_tokens": 735,
+          "cache_read_input_tokens": 90980
+        },
+        "used_percentage": 46,
+        "remaining_percentage": 54
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:28.932419",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.445846299999994,
+        "total_duration_ms": 42244275,
+        "total_api_duration_ms": 3424034,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92622,
+        "total_output_tokens": 350939,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 265,
+          "cache_creation_input_tokens": 498,
+          "cache_read_input_tokens": 91715
+        },
+        "used_percentage": 46,
+        "remaining_percentage": 54
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:28.933181",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.445846299999994,
+        "total_duration_ms": 42244275,
+        "total_api_duration_ms": 3424034,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92622,
+        "total_output_tokens": 350939,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 265,
+          "cache_creation_input_tokens": 498,
+          "cache_read_input_tokens": 91715
+        },
+        "used_percentage": 46,
+        "remaining_percentage": 54
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:31.174959",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.445846299999994,
+        "total_duration_ms": 42246519,
+        "total_api_duration_ms": 3424034,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92622,
+        "total_output_tokens": 350939,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 28,
+          "cache_creation_input_tokens": 436,
+          "cache_read_input_tokens": 92213
+        },
+        "used_percentage": 46,
+        "remaining_percentage": 54
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:31.175798",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.445846299999994,
+        "total_duration_ms": 42246519,
+        "total_api_duration_ms": 3424034,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92622,
+        "total_output_tokens": 350939,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 28,
+          "cache_creation_input_tokens": 436,
+          "cache_read_input_tokens": 92213
+        },
+        "used_percentage": 46,
+        "remaining_percentage": 54
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:31.630650",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.456590599999995,
+        "total_duration_ms": 42246972,
+        "total_api_duration_ms": 3426624,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92630,
+        "total_output_tokens": 351133,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 194,
+          "cache_creation_input_tokens": 436,
+          "cache_read_input_tokens": 92213
+        },
+        "used_percentage": 46,
+        "remaining_percentage": 54
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:31.631271",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.456590599999995,
+        "total_duration_ms": 42246972,
+        "total_api_duration_ms": 3426624,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92630,
+        "total_output_tokens": 351133,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 194,
+          "cache_creation_input_tokens": 436,
+          "cache_read_input_tokens": 92213
+        },
+        "used_percentage": 46,
+        "remaining_percentage": 54
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:35.091933",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.456590599999995,
+        "total_duration_ms": 42250436,
+        "total_api_duration_ms": 3426624,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92630,
+        "total_output_tokens": 351133,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 45,
+          "cache_creation_input_tokens": 1448,
+          "cache_read_input_tokens": 92649
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:35.092938",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.456590599999995,
+        "total_duration_ms": 42250436,
+        "total_api_duration_ms": 3426624,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92630,
+        "total_output_tokens": 351133,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 45,
+          "cache_creation_input_tokens": 1448,
+          "cache_read_input_tokens": 92649
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:35.703676",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.469128499999995,
+        "total_duration_ms": 42251046,
+        "total_api_duration_ms": 3430085,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92638,
+        "total_output_tokens": 351424,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 291,
+          "cache_creation_input_tokens": 1448,
+          "cache_read_input_tokens": 92649
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:35.704517",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.469128499999995,
+        "total_duration_ms": 42251046,
+        "total_api_duration_ms": 3430085,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92638,
+        "total_output_tokens": 351424,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 291,
+          "cache_creation_input_tokens": 1448,
+          "cache_read_input_tokens": 92649
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:38.382621",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.469128499999995,
+        "total_duration_ms": 42253725,
+        "total_api_duration_ms": 3430085,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92638,
+        "total_output_tokens": 351424,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 28,
+          "cache_creation_input_tokens": 362,
+          "cache_read_input_tokens": 94097
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:38.383784",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.469128499999995,
+        "total_duration_ms": 42253725,
+        "total_api_duration_ms": 3430085,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92638,
+        "total_output_tokens": 351424,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 28,
+          "cache_creation_input_tokens": 362,
+          "cache_read_input_tokens": 94097
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:38.790286",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.480023699999995,
+        "total_duration_ms": 42254133,
+        "total_api_duration_ms": 3432695,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92646,
+        "total_output_tokens": 351629,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 205,
+          "cache_creation_input_tokens": 362,
+          "cache_read_input_tokens": 94097
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:38.791135",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.480023699999995,
+        "total_duration_ms": 42254133,
+        "total_api_duration_ms": 3432695,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92646,
+        "total_output_tokens": 351629,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 205,
+          "cache_creation_input_tokens": 362,
+          "cache_read_input_tokens": 94097
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:40.695913",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.480023699999995,
+        "total_duration_ms": 42256040,
+        "total_api_duration_ms": 3432695,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92646,
+        "total_output_tokens": 351629,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 44,
+          "cache_creation_input_tokens": 230,
+          "cache_read_input_tokens": 94459
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:40.696861",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.480023699999995,
+        "total_duration_ms": 42256040,
+        "total_api_duration_ms": 3432695,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92646,
+        "total_output_tokens": 351629,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 44,
+          "cache_creation_input_tokens": 230,
+          "cache_read_input_tokens": 94459
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:41.262807",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.490445099999995,
+        "total_duration_ms": 42256605,
+        "total_api_duration_ms": 3434730,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92654,
+        "total_output_tokens": 351765,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 136,
+          "cache_creation_input_tokens": 230,
+          "cache_read_input_tokens": 94459
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:41.264017",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.490445099999995,
+        "total_duration_ms": 42256605,
+        "total_api_duration_ms": 3434730,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92654,
+        "total_output_tokens": 351765,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 136,
+          "cache_creation_input_tokens": 230,
+          "cache_read_input_tokens": 94459
+        },
+        "used_percentage": 47,
+        "remaining_percentage": 53
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:48.078639",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.490445099999995,
+        "total_duration_ms": 42263420,
+        "total_api_duration_ms": 3434730,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92654,
+        "total_output_tokens": 351765,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 45,
+          "cache_creation_input_tokens": 365,
+          "cache_read_input_tokens": 94689
+        },
+        "used_percentage": 48,
+        "remaining_percentage": 52
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "[Haiku 4.5] \ud83d\udcad No session data",
+    "error": "Session file .claude/data/sessions/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.json does not exist"
+  },
+  {
+    "timestamp": "2026-04-19T07:46:48.079732",
+    "version": "v4-enhanced",
+    "input_data": {
+      "session_id": "0e6ed1ff-2d26-409d-b2b4-fe4442d9b520",
+      "transcript_path": "/Users/jamesanthonyrajah/.claude/projects/-Users-jamesanthonyrajah-Projects-Revamped-turing-workspace-cookiecutter-microservices-template/0e6ed1ff-2d26-409d-b2b4-fe4442d9b520.jsonl",
+      "cwd": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+      "model": {
+        "id": "claude-haiku-4-5-20251001",
+        "display_name": "Haiku 4.5"
+      },
+      "workspace": {
+        "current_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "project_dir": "/Users/jamesanthonyrajah/Projects-Revamped/turing_workspace/cookiecutter-microservices-template",
+        "added_dirs": []
+      },
+      "version": "2.1.114",
+      "output_style": {
+        "name": "default"
+      },
+      "cost": {
+        "total_cost_usd": 8.490445099999995,
+        "total_duration_ms": 42263420,
+        "total_api_duration_ms": 3434730,
+        "total_lines_added": 6890,
+        "total_lines_removed": 470
+      },
+      "context_window": {
+        "total_input_tokens": 92654,
+        "total_output_tokens": 351765,
+        "context_window_size": 200000,
+        "current_usage": {
+          "input_tokens": 8,
+          "output_tokens": 45,
+          "cache_creation_input_tokens": 365,
+          "cache_read_input_tokens": 94689
+        },
+        "used_percentage": 48,
+        "remaining_percentage": 52
+      },
+      "exceeds_200k_tokens": false,
+      "rate_limits": {
+        "five_hour": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1776578400
+        },
+        "seven_day": {
+          "used_percentage": 7.000000000000001,
+          "resets_at": 1777046400
+        }
+      }
+    },
+    "status_line_output": "\u001b[36m[Haiku 4.5]\u001b[0m \u001b[90m\ud83d\udcad No session data\u001b[0m"
+  }
+]
